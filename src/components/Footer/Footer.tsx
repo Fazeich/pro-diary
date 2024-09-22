@@ -1,7 +1,7 @@
 import React from "react";
 import { StyledFooter } from "./styles";
 import { $sidebar, changeSidebarStore } from "stores/sidebar/sidebar";
-import { CloseIcon, MenuClose, MenuOpen } from "uikit/icons";
+import { MenuClose, MenuOpen } from "uikit/icons";
 import { useUnit } from "effector-react";
 import { Input, Paragraph, Select } from "uikit/components";
 import { SendIcon } from "uikit/icons";

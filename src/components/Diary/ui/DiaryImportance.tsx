@@ -1,5 +1,4 @@
 import { IMPORTANCE_OPTIONS } from "lib/constants/constants";
-import { getHours } from "lib/utils/getHours";
 import React, { FC, useMemo } from "react";
 import { changeDiary } from "stores/diary/diary";
 import { IDiary } from "stores/diary/types";

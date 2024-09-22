@@ -1,4 +1,4 @@
-import { Divider, Dropdown } from "antd";
+import { Dropdown } from "antd";
 import { useUnit } from "effector-react";
 import React, { useState } from "react";
 import { addDiary, removeDiary } from "stores/diary/diary";
