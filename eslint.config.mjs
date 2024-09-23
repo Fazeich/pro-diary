@@ -5,21 +5,8 @@ import pluginReact from 'eslint-plugin-react';
 export default [
   {
     files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
-    rules: {
-      'simple-import-sort/imports': [
-        'warn',
-        {
-          groups: [
-            ['^\\u0000'],
-            ['^react', '^@\\w', '^@?\\w', '^'],
-            ['^(@|store|api|hooks|utils|constants|icons)(/.*|$)'],
-            ['^\\./(?=.*/)(?!/?&)', '^\\.(?!/?$)', '^\\./?$'],
-            ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
-            ['^.+\\./styles.ts$'],
-          ],
-        },
-      ],
-    },
+    rules: {},
+    ignores: ['.node_modules', '.public'],
   },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
