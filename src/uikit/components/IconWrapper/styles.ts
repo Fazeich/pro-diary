@@ -7,8 +7,6 @@ export const StyledIconWrapper = styled.div<{
   size: number;
   disabled: boolean;
 }>`
-  width: max-content;
-
   svg {
     transition: all 0.15s ease-in-out;
 
@@ -20,7 +18,7 @@ export const StyledIconWrapper = styled.div<{
         disabled ? theme.secondary.text : theme.accent.text};
     }
 
-    font-size: ${({ size }) => `${size}px`};
+    font-size: ${({ size }) => size}px;
 
     cursor: ${({ cursor }) => cursor || "default"};
   }

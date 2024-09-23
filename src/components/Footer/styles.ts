@@ -1,20 +1,35 @@
 import { FOOTER_HEIGHT } from "lib/constants/constants";
 import styled from "styled-components";
 
-export const StyledFooter = styled.div`
+export const StyledFooter = styled.div<{ isMobile: boolean }>`
   background-color: ${({ theme }) => theme.primary.background};
 
   box-shadow: ${({ theme }) => theme.primary.shadow};
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  height: ${({ isMobile }) =>
+    isMobile ? FOOTER_HEIGHT - 20 : FOOTER_HEIGHT}px;
 
-  height: ${FOOTER_HEIGHT}px;
+  ${({ isMobile }) => {
+    if (isMobile) {
+      return `
+        display: flex;
+  
+        flex-direction: column;
+  
+        align-items: center;
+        justify-content: center;
+      `;
+    }
 
-  gap: 20px;
+    return `
+      display: flex;
+    
+      align-items: center;
+      justify-content: space-between;
+    
+      gap: 20px;
+      `;
+  }}
 
   padding: 0 20px;
-
-  position: relative;
 `;

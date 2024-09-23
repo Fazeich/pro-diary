@@ -1,7 +1,7 @@
 import { HEADER_HEIGHT } from "lib/constants/constants";
 import styled from "styled-components";
 
-export const StyledHeader = styled.div`
+export const StyledHeader = styled.div<{ isMobile: boolean }>`
   background-color: ${({ theme }) => theme.primary.background};
 
   box-shadow: ${({ theme }) => theme.primary.shadow};
@@ -9,7 +9,8 @@ export const StyledHeader = styled.div`
   display: flex;
   align-items: center;
 
-  height: ${HEADER_HEIGHT}px;
+  height: ${({ isMobile }) =>
+    isMobile ? HEADER_HEIGHT - 20 : HEADER_HEIGHT}px;
 
   gap: 20px;
 

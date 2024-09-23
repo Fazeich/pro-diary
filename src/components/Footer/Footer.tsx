@@ -11,12 +11,14 @@ import {
 } from "stores/diary/diary";
 import { uniqueId } from "lodash";
 import { DurationSelect } from "features";
-import { $efficiency } from "stores/main/main";
+import { $efficiency, $main } from "stores/main/main";
 import { IMPORTANCE_OPTIONS } from "lib/constants/constants";
+import { PlusIcon } from "uikit/icons/PlusIcon";
 
 export const Footer = () => {
   const { newDiary } = useUnit($diary);
   const { timeLost } = useUnit($efficiency);
+  const { isMobile } = useUnit($main);
 
   const isDisabledAdding = Number(newDiary?.duration || 0) > timeLost;
 
@@ -28,8 +30,16 @@ export const Footer = () => {
     }
   };
 
+  if (isMobile) {
+    return (
+      <StyledFooter isMobile={isMobile}>
+        <PlusIcon size={45} theme="accent" />
+      </StyledFooter>
+    );
+  }
+
   return (
-    <StyledFooter>
+    <StyledFooter isMobile={isMobile}>
       <Paragraph
         text={`Оставшееся время: ${timeLost}`}
         theme="accent"
