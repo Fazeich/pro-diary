@@ -7,3 +7,6 @@ export const IMPORTANCE_OPTIONS = [
   { label: "Важно", value: "important" },
   { label: "Не важно", value: "not_important" },
 ];
+
+export const HEADER_HEIGHT = 75;
+export const FOOTER_HEIGHT = 75;

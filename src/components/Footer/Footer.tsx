@@ -1,7 +1,5 @@
 import React from "react";
 import { StyledFooter } from "./styles";
-import { $sidebar, changeSidebarStore } from "stores/sidebar/sidebar";
-import { MenuClose, MenuOpen } from "uikit/icons";
 import { useUnit } from "effector-react";
 import { Input, Paragraph, Select } from "uikit/components";
 import { SendIcon } from "uikit/icons";
@@ -13,22 +11,14 @@ import {
 } from "stores/diary/diary";
 import { uniqueId } from "lodash";
 import { DurationSelect } from "features";
-import { $main } from "stores/main/main";
+import { $efficiency } from "stores/main/main";
 import { IMPORTANCE_OPTIONS } from "lib/constants/constants";
 
 export const Footer = () => {
-  const { isOpen } = useUnit($sidebar);
-  const { newDiary, diaries } = useUnit($diary);
-  const {
-    settings: { efficiency },
-  } = useUnit($main);
+  const { newDiary } = useUnit($diary);
+  const { timeLost } = useUnit($efficiency);
 
-  const timeCost = diaries?.reduce((prev, next) => {
-    return prev + Number(next.duration) || 0;
-  }, 0);
-
-  const isDisabledAdding =
-    timeCost + Number(newDiary?.duration || 0) > efficiency;
+  const isDisabledAdding = Number(newDiary?.duration || 0) > timeLost;
 
   const handleAddDiary = () => {
     if (!!newDiary?.title && !isDisabledAdding) {
@@ -40,20 +30,8 @@ export const Footer = () => {
 
   return (
     <StyledFooter>
-      {isOpen ? (
-        <MenuClose
-          cursor="pointer"
-          onClick={() => changeSidebarStore({ isOpen: false })}
-        />
-      ) : (
-        <MenuOpen
-          cursor="pointer"
-          onClick={() => changeSidebarStore({ isOpen: true })}
-        />
-      )}
-
       <Paragraph
-        text={`Оставшееся время: ${efficiency - timeCost}`}
+        text={`Оставшееся время: ${timeLost}`}
         theme="accent"
         style={{
           minWidth: "200px",
@@ -83,11 +61,7 @@ export const Footer = () => {
         duration={newDiary?.duration}
         setDuration={(value) => changeNewDiary({ duration: value })}
         width={250}
-        getDisabledOption={(option) => {
-          const timeLost = efficiency - timeCost;
-
-          return Number(option.value) > timeLost;
-        }}
+        getDisabledOption={(option) => Number(option.value) > timeLost}
       />
 
       <SendIcon

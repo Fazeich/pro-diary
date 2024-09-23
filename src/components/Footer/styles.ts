@@ -1,3 +1,4 @@
+import { FOOTER_HEIGHT } from "lib/constants/constants";
 import styled from "styled-components";
 
 export const StyledFooter = styled.div`
@@ -9,7 +10,7 @@ export const StyledFooter = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  height: 55px;
+  height: ${FOOTER_HEIGHT}px;
 
   gap: 20px;
 

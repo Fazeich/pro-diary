@@ -1,3 +1,4 @@
+import { HEADER_HEIGHT } from "lib/constants/constants";
 import styled from "styled-components";
 
 export const StyledHeader = styled.div`
@@ -8,9 +9,9 @@ export const StyledHeader = styled.div`
   display: flex;
   align-items: center;
 
-  height: 60px;
+  height: ${HEADER_HEIGHT}px;
 
-  gap: 10px;
+  gap: 20px;
 
-  padding: 0 10px;
+  padding: 20px;
 `;

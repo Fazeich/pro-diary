@@ -1,5 +1,6 @@
-import { createEvent, createStore } from "effector";
+import { combine, createEvent, createStore } from "effector";
 import { IMainStore } from "./types";
+import { $diary } from "stores/diary/diary";
 
 const isMobile =
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
@@ -17,6 +18,22 @@ export const $main = createStore<IMainStore>({
     theme: "light",
     efficiency: 12,
   },
+});
+
+export const $efficiency = combine($main, $diary, (main, diary) => {
+  const efficiency = main?.settings?.efficiency;
+
+  const timeCost = diary?.diaries?.reduce((prev, next) => {
+    return prev + Number(next.duration) || 0;
+  }, 0);
+
+  const timeLost = efficiency - timeCost;
+
+  return {
+    efficiency,
+    timeCost,
+    timeLost,
+  };
 });
 
 export const changeMainStore = createEvent<Partial<IMainStore>>();

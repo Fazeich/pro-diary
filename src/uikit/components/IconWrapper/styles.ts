@@ -7,6 +7,8 @@ export const StyledIconWrapper = styled.div<{
   size: number;
   disabled: boolean;
 }>`
+  width: max-content;
+
   svg {
     transition: all 0.15s ease-in-out;
 

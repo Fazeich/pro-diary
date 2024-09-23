@@ -3,7 +3,7 @@ import { useUnit } from "effector-react";
 import React, { useState } from "react";
 import { addDiary, removeDiary } from "stores/diary/diary";
 import { IDiary } from "stores/diary/types";
-import { $main } from "stores/main/main";
+import { $efficiency, $main } from "stores/main/main";
 import { Paragraph } from "uikit/components";
 import { DiaryItemWrapper } from "../styles";
 import { DiaryTitle } from "./DiaryTitle";
@@ -16,17 +16,25 @@ export const DiaryItem = (diary: IDiary) => {
   const [isChangingDuration, setIsChangingDuration] = useState<boolean>(false);
   const [isChangingImportance, setIsChangingImportance] =
     useState<boolean>(false);
+
   const { isMobile } = useUnit($main);
+  const { timeLost } = useUnit($efficiency);
 
   const contextMenuItems = [
     {
       label: (
         <Paragraph
           text="Дублировать"
-          onClick={() => addDiary({ ...diary, id: uniqueId() })}
+          theme={timeLost >= (diary?.duration || 0) ? "primary" : "secondary"}
+          onClick={() => {
+            if (timeLost >= (diary?.duration || 0)) {
+              addDiary({ ...diary, id: uniqueId(), title: `${diary.title}*` });
+            }
+          }}
         />
       ),
       key: "dublicate",
+      disabled: timeLost < (diary?.duration || 0),
     },
     {
       label: (

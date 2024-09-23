@@ -1,12 +1,12 @@
 import { DurationSelect } from "features";
 import { getHours } from "lib/utils/getHours";
 import React, { FC } from "react";
-import { $diary, changeDiary } from "stores/diary/diary";
+import { changeDiary } from "stores/diary/diary";
 import { IDiary } from "stores/diary/types";
 import { Paragraph } from "uikit/components";
 import { FlexUnwrap } from "../styles";
 import { useUnit } from "effector-react";
-import { $main } from "stores/main/main";
+import { $efficiency } from "stores/main/main";
 
 interface IProps {
   isChangingDuration: boolean;
@@ -19,14 +19,7 @@ export const DiaryDuration: FC<IProps> = ({
   setIsChangingDuration,
   diary,
 }) => {
-  const {
-    settings: { efficiency },
-  } = useUnit($main);
-  const { diaries } = useUnit($diary);
-
-  const timeCost = diaries?.reduce((prev, next) => {
-    return prev + Number(next.duration) || 0;
-  }, 0);
+  const { timeLost } = useUnit($efficiency);
 
   if (isChangingDuration) {
     return (
@@ -44,8 +37,6 @@ export const DiaryDuration: FC<IProps> = ({
           defaultOpen
           width={150}
           getDisabledOption={(option) => {
-            const timeLost = efficiency - timeCost;
-
             return Number(option.value) > timeLost;
           }}
         />
