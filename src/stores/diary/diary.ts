@@ -1,11 +1,11 @@
-import { sortDiariesDuration } from "./utils";
-import { createEvent, createStore } from "effector";
-import { IDiary, IDiaryStore } from "./types";
+import { sortDiariesDuration } from './utils';
+import { createEvent, createStore } from 'effector';
+import { IDiary, IDiaryStore } from './types';
 
 const init: IDiaryStore = {
   diaries: [],
   newDiary: {
-    title: "",
+    title: '',
     duration: 1,
     importance: null,
   },
@@ -28,17 +28,14 @@ $diary
     const newDiaries = [...state.diaries, payload];
 
     const importantDiaries = newDiaries
-      .filter((diary) => diary.importance === "important")
+      .filter((diary) => diary.importance === 'important')
       .sort(sortDiariesDuration);
     const notImportantDiaries = newDiaries
-      .filter((diary) => diary.importance === "not_important")
+      .filter((diary) => diary.importance === 'not_important')
       .sort(sortDiariesDuration);
     const otherDiaries = newDiaries
       .filter(
-        (diary) =>
-          diary.importance === undefined ||
-          diary.importance === null ||
-          !diary.importance
+        (diary) => diary.importance === undefined || diary.importance === null || !diary.importance
       )
       .sort(sortDiariesDuration);
 

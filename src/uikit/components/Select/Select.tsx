@@ -1,7 +1,7 @@
-import React, { FC } from "react";
-import { StyledSelect } from "./styles";
-import { SelectProps } from "antd";
-import { DefaultOptionType } from "antd/es/select";
+import React, { FC } from 'react';
+import { StyledSelect } from './styles';
+import { SelectProps } from 'antd';
+import { DefaultOptionType } from 'antd/es/select';
 
 export interface ISelectProps extends SelectProps {
   width?: string | number;

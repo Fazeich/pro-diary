@@ -4,7 +4,7 @@ export interface ITheme {
   accent: IThemeItem;
 }
 
-export type ThemeTypes = "primary" | "secondary" | "accent";
+export type ThemeTypes = 'primary' | 'secondary' | 'accent';
 
 export interface IThemeItem {
   text: string;

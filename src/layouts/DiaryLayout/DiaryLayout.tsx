@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { StyledDiaryLayout } from "./styles";
+import React, { FC } from 'react';
+import { StyledDiaryLayout } from './styles';
 
 interface IProps {
   children: any;

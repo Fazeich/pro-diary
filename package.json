@@ -25,7 +25,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepare": "husky"
   },
   "eslintConfig": {
     "extends": [
@@ -48,6 +49,9 @@
   "devDependencies": {
     "@types/lodash": "^4.17.7",
     "antd": "^5.20.6",
-    "lodash": "^4.17.21"
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "lodash": "^4.17.21",
+    "prettier": "^3.3.3"
   }
 }

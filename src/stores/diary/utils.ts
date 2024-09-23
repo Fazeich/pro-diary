@@ -1,4 +1,4 @@
-import { IDiary } from "./types";
+import { IDiary } from './types';
 
 export const sortDiariesDuration = (prevDiary: IDiary, nextDiary: IDiary) => {
   if (Number(prevDiary?.duration || 0) > Number(nextDiary?.duration || 0)) {

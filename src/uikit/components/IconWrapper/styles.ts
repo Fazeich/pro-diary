@@ -1,9 +1,9 @@
-import { ThemeTypes } from "lib/theme/types";
-import styled from "styled-components";
+import { ThemeTypes } from 'lib/theme/types';
+import styled from 'styled-components';
 
 export const StyledIconWrapper = styled.div<{
   themeType: ThemeTypes;
-  cursor?: "default" | "pointer" | "move";
+  cursor?: 'default' | 'pointer' | 'move';
   size: number;
   disabled: boolean;
 }>`
@@ -14,12 +14,11 @@ export const StyledIconWrapper = styled.div<{
       disabled ? theme.secondary.text : theme?.[themeType].text};
 
     &:hover {
-      color: ${({ theme, disabled }) =>
-        disabled ? theme.secondary.text : theme.accent.text};
+      color: ${({ theme, disabled }) => (disabled ? theme.secondary.text : theme.accent.text)};
     }
 
     font-size: ${({ size }) => size}px;
 
-    cursor: ${({ cursor }) => cursor || "default"};
+    cursor: ${({ cursor }) => cursor || 'default'};
   }
 `;

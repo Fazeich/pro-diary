@@ -1,13 +1,12 @@
-import { FOOTER_HEIGHT } from "lib/constants/constants";
-import styled from "styled-components";
+import { FOOTER_HEIGHT } from 'lib/constants/constants';
+import styled from 'styled-components';
 
 export const StyledFooter = styled.div<{ isMobile: boolean }>`
   background-color: ${({ theme }) => theme.primary.background};
 
   box-shadow: ${({ theme }) => theme.primary.shadow};
 
-  height: ${({ isMobile }) =>
-    isMobile ? FOOTER_HEIGHT - 20 : FOOTER_HEIGHT}px;
+  height: ${({ isMobile }) => (isMobile ? FOOTER_HEIGHT - 20 : FOOTER_HEIGHT)}px;
 
   ${({ isMobile }) => {
     if (isMobile) {

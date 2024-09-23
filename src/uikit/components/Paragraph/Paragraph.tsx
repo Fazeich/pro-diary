@@ -1,6 +1,6 @@
-import React, { FC, HTMLAttributes } from "react";
-import { StyledParagraph } from "./styles";
-import { ThemeTypes } from "lib/theme/types";
+import React, { FC, HTMLAttributes } from 'react';
+import { StyledParagraph } from './styles';
+import { ThemeTypes } from 'lib/theme/types';
 
 interface IProps extends HTMLAttributes<HTMLParagraphElement> {
   theme?: ThemeTypes;
@@ -10,10 +10,10 @@ interface IProps extends HTMLAttributes<HTMLParagraphElement> {
 }
 
 export const Paragraph: FC<IProps> = ({
-  text = "",
+  text = '',
   size = 18,
   weight = 500,
-  theme = "primary",
+  theme = 'primary',
   ...props
 }) => {
   return (

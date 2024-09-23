@@ -2,14 +2,14 @@ export const getHours = (duration?: number) => {
   switch (duration) {
     case 1:
     case 21:
-      return "час";
+      return 'час';
     case 2:
     case 3:
     case 4:
     case 22:
     case 23:
     case 24:
-      return "часа";
+      return 'часа';
     case 5:
     case 6:
     case 7:
@@ -26,8 +26,8 @@ export const getHours = (duration?: number) => {
     case 18:
     case 19:
     case 20:
-      return "часов";
+      return 'часов';
     default:
-      return "-";
+      return '-';
   }
 };

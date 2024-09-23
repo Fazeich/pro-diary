@@ -1,5 +1,5 @@
-import TextArea from "antd/es/input/TextArea";
-import styled from "styled-components";
+import TextArea from 'antd/es/input/TextArea';
+import styled from 'styled-components';
 
 export const StyledTextArea = styled(TextArea)`
   background: none !important;

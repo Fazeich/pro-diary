@@ -1,1 +1,1 @@
-export { DurationSelect } from "./DurationSelect/DurationSelect";
+export { DurationSelect } from './DurationSelect/DurationSelect';

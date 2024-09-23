@@ -1,5 +1,5 @@
-import { ThemeTypes } from "lib/theme/types";
-import styled from "styled-components";
+import { ThemeTypes } from 'lib/theme/types';
+import styled from 'styled-components';
 
 export const StyledParagraph = styled.p<{
   size: number;

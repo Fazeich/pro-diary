@@ -1,19 +1,14 @@
-import React from "react";
-import { StyledFooter } from "./styles";
-import { useUnit } from "effector-react";
-import { Input, Paragraph, Select } from "uikit/components";
-import { SendIcon } from "uikit/icons";
-import {
-  $diary,
-  addDiary,
-  changeNewDiary,
-  resetNewDiary,
-} from "stores/diary/diary";
-import { uniqueId } from "lodash";
-import { DurationSelect } from "features";
-import { $efficiency, $main } from "stores/main/main";
-import { IMPORTANCE_OPTIONS } from "lib/constants/constants";
-import { PlusIcon } from "uikit/icons/PlusIcon";
+import React from 'react';
+import { StyledFooter } from './styles';
+import { useUnit } from 'effector-react';
+import { Input, Paragraph, Select } from 'uikit/components';
+import { SendIcon } from 'uikit/icons';
+import { $diary, addDiary, changeNewDiary, resetNewDiary } from 'stores/diary/diary';
+import { uniqueId } from 'lodash';
+import { DurationSelect } from 'features';
+import { $efficiency, $main } from 'stores/main/main';
+import { IMPORTANCE_OPTIONS } from 'lib/constants/constants';
+import { PlusIcon } from 'uikit/icons/PlusIcon';
 
 export const Footer = () => {
   const { newDiary } = useUnit($diary);
@@ -33,7 +28,7 @@ export const Footer = () => {
   if (isMobile) {
     return (
       <StyledFooter isMobile={isMobile}>
-        <PlusIcon size={45} theme="accent" />
+        <PlusIcon size={45} theme='accent' />
       </StyledFooter>
     );
   }
@@ -42,32 +37,32 @@ export const Footer = () => {
     <StyledFooter isMobile={isMobile}>
       <Paragraph
         text={`Оставшееся время: ${timeLost}`}
-        theme="accent"
+        theme='accent'
         style={{
-          minWidth: "200px",
+          minWidth: '200px',
         }}
       />
 
       <Input
-        placeholder="Что необходимо сделать?"
-        value={newDiary?.title || ""}
+        placeholder='Что необходимо сделать?'
+        value={newDiary?.title || ''}
         onChange={({ target: { value } }) => changeNewDiary({ title: value })}
         onPressEnter={handleAddDiary}
-        width={"70%"}
+        width={'70%'}
       />
 
       <Select
         value={newDiary?.importance}
         options={IMPORTANCE_OPTIONS}
-        placement="topLeft"
+        placement='topLeft'
         width={250}
-        placeholder="Важность"
+        placeholder='Важность'
         onChange={(value) => changeNewDiary({ importance: value })}
       />
 
       <DurationSelect
-        placeholder="Длительность"
-        placement="topLeft"
+        placeholder='Длительность'
+        placement='topLeft'
         duration={newDiary?.duration}
         setDuration={(value) => changeNewDiary({ duration: value })}
         width={250}
@@ -75,7 +70,7 @@ export const Footer = () => {
       />
 
       <SendIcon
-        cursor="pointer"
+        cursor='pointer'
         disabled={!newDiary?.title || isDisabledAdding}
         onClick={handleAddDiary}
       />

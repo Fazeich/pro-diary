@@ -1,6 +1,6 @@
-import { combine, createEvent, createStore } from "effector";
-import { IMainStore } from "./types";
-import { $diary } from "stores/diary/diary";
+import { combine, createEvent, createStore } from 'effector';
+import { IMainStore } from './types';
+import { $diary } from 'stores/diary/diary';
 
 const isMobile =
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
@@ -9,13 +9,13 @@ const isMobile =
 
 export const $main = createStore<IMainStore>({
   user: {
-    login: "admin",
-    name: "administrator",
+    login: 'admin',
+    name: 'administrator',
     id: 0,
   },
   isMobile,
   settings: {
-    theme: "light",
+    theme: 'light',
     efficiency: 12,
   },
 });

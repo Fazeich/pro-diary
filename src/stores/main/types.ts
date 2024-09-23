@@ -1,4 +1,4 @@
-import { ThemeType } from "stores/theme/types";
+import { ThemeType } from 'stores/theme/types';
 
 export interface IUser {
   login: string;

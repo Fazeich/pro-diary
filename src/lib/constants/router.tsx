@@ -1,13 +1,13 @@
-import { DiaryPage, WelcomePage } from "pages";
-import { createBrowserRouter } from "react-router-dom";
+import { DiaryPage, WelcomePage } from 'pages';
+import { createBrowserRouter } from 'react-router-dom';
 
 export const router = createBrowserRouter([
   {
-    path: "/welcome",
+    path: '/welcome',
     element: <WelcomePage />,
   },
   {
-    path: "/",
+    path: '/',
     element: <DiaryPage />,
   },
 ]);

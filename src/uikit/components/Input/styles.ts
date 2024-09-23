@@ -1,5 +1,5 @@
-import { Input } from "antd";
-import styled from "styled-components";
+import { Input } from 'antd';
+import styled from 'styled-components';
 
 export const StyledInput = styled(Input)`
   height: 40px;
@@ -17,13 +17,13 @@ export const StyledInput = styled(Input)`
   width: ${({ width }) => {
     if (width) {
       switch (typeof width) {
-        case "string":
+        case 'string':
           return width;
-        case "number":
+        case 'number':
           return `${width}px`;
       }
     }
 
-    return "100%";
+    return '100%';
   }};
 `;
