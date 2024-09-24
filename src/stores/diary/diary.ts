@@ -1,6 +1,8 @@
-import { sortDiariesDuration } from './utils';
-import { createEvent, createStore } from 'effector';
+import { getSortedDiaries } from './utils';
+import { createEffect, createEvent, createStore } from 'effector';
 import { IDiary, IDiaryStore } from './types';
+import axios from 'axios';
+import { request } from 'api/api';
 
 const init: IDiaryStore = {
   diaries: [],
@@ -23,25 +25,19 @@ export const changeDiary = createEvent<IDiary>();
 
 export const resetNewDiary = createEvent();
 
+export const getDiariesFx = createEffect(async () => {
+  const req = await request<IDiary[]>({ url: '/api/diaries' });
+
+  return req.data;
+});
+
 $diary
   .on(addDiary, (state, payload) => {
-    const newDiaries = [...state.diaries, payload];
-
-    const importantDiaries = newDiaries
-      .filter((diary) => diary.importance === 'important')
-      .sort(sortDiariesDuration);
-    const notImportantDiaries = newDiaries
-      .filter((diary) => diary.importance === 'not_important')
-      .sort(sortDiariesDuration);
-    const otherDiaries = newDiaries
-      .filter(
-        (diary) => diary.importance === undefined || diary.importance === null || !diary.importance
-      )
-      .sort(sortDiariesDuration);
+    const newDiaries = getSortedDiaries([...state.diaries, payload]);
 
     return {
       ...state,
-      diaries: [...importantDiaries, ...notImportantDiaries, ...otherDiaries],
+      diaries: newDiaries,
     };
   })
   .on(removeDiary, (state, payload) => {
@@ -69,6 +65,14 @@ $diary
 
         return diary;
       }),
+    };
+  })
+  .on(getDiariesFx.done, (state, { result }) => {
+    console.log(result);
+    return {
+      ...state,
+      // @ts-ignore
+      diaries: getSortedDiaries(result.data),
     };
   })
   .on(resetNewDiary, (state) => {
