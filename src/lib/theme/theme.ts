@@ -24,7 +24,7 @@ export const lightTheme: ITheme = {
     text: '#222947',
     background: '#fae0b9',
     border: '#1b1e2b',
-    shadow: '2px 2px 3px 0 #59595a',
+    shadow: '2px 2px 10px 0px #59595a',
   },
   secondary: {
     text: '#949393',

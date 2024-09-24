@@ -59,5 +59,6 @@
     "*.{json,js,jsx,tsx,html}": [
       "prettier --write --ignore-unknown"
     ]
-  }
+  },
+  "proxy": "http://localhost:3010"
 }

@@ -1,21 +1,23 @@
 import React, { FC } from 'react';
 import { useUnit } from 'effector-react';
-import { $theme } from 'stores/theme/theme';
 import { darkTheme, lightTheme } from 'lib/theme/theme';
 import { ThemeProvider } from 'styled-components';
 import { StyledAppLayout } from './styles';
+import { $main } from 'stores/main/main';
 
 interface IProps {
   children: any;
 }
 
 export const AppLayout: FC<IProps> = ({ children }) => {
-  const { themeType } = useUnit($theme);
+  const {
+    settings: { theme },
+  } = useUnit($main);
 
-  const theme = themeType === 'light' ? lightTheme : darkTheme;
+  const uiTheme = theme === 'light' ? lightTheme : darkTheme;
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={uiTheme}>
       <StyledAppLayout>{children}</StyledAppLayout>
     </ThemeProvider>
   );

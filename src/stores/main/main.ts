@@ -1,6 +1,7 @@
-import { combine, createEvent, createStore } from 'effector';
-import { IMainStore } from './types';
+import { combine, createEffect, createEvent, createStore } from 'effector';
+import { IAuthParams, IMainStore } from './types';
 import { $diary } from 'stores/diary/diary';
+import axios from 'axios';
 
 const isMobile =
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
@@ -9,9 +10,9 @@ const isMobile =
 
 export const $main = createStore<IMainStore>({
   user: {
-    login: 'admin',
-    name: 'administrator',
-    id: 0,
+    login: '',
+    name: '',
+    id: undefined,
   },
   isMobile,
   settings: {
@@ -34,6 +35,14 @@ export const $efficiency = combine($main, $diary, (main, diary) => {
     timeCost,
     timeLost,
   };
+});
+
+export const registerFx = createEffect((params: IAuthParams) => {
+  return axios.post<{ message: string }>('/api/reg', params);
+});
+
+export const authFx = createEffect(async (params: IAuthParams) => {
+  return axios.post<{ token: string; userId: string }>('/api/auth', params);
 });
 
 export const changeMainStore = createEvent<Partial<IMainStore>>();

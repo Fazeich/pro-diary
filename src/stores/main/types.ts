@@ -1,5 +1,4 @@
-import { ThemeType } from 'stores/theme/types';
-
+export type ThemeType = 'light' | 'dark';
 export interface IUser {
   login: string;
   name: string;
@@ -15,4 +14,9 @@ export interface IMainStore {
   user: IUser;
   isMobile: boolean;
   settings: ISettings;
+}
+
+export interface IAuthParams {
+  login: string;
+  password: string;
 }

@@ -1,8 +1,8 @@
 import { getSortedDiaries } from './utils';
 import { createEffect, createEvent, createStore } from 'effector';
 import { IDiary, IDiaryStore } from './types';
-import axios from 'axios';
 import { request } from 'api/api';
+import axios from 'axios';
 
 const init: IDiaryStore = {
   diaries: [],
@@ -26,7 +26,7 @@ export const changeDiary = createEvent<IDiary>();
 export const resetNewDiary = createEvent();
 
 export const getDiariesFx = createEffect(async () => {
-  const req = await request<IDiary[]>({ url: '/api/diaries' });
+  const req = await axios.get<IDiary[]>('/api/diaries');
 
   return req.data;
 });
