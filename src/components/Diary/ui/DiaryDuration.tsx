@@ -38,13 +38,17 @@ export const DiaryDuration: FC<IProps> = ({ isChangingDuration, setIsChangingDur
     );
   }
 
-  return (
-    <Paragraph
-      text={`Длительность: ${diary.duration} ${getHours(diary.duration)}`}
-      style={{
-        minWidth: '200px',
-        maxWidth: '250px',
-      }}
-    />
-  );
+  if (diary?.duration) {
+    return (
+      <Paragraph
+        text={`Длительность: ${diary.duration} ${getHours(diary.duration)}`}
+        style={{
+          minWidth: '200px',
+          maxWidth: '250px',
+        }}
+      />
+    );
+  }
+
+  return <></>;
 };

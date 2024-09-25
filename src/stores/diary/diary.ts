@@ -7,15 +7,14 @@ import {
   IDiaryStore,
   IGetDiaryParams,
 } from './types';
-import { request } from 'api/api';
 import axios from 'axios';
 
 const init: IDiaryStore = {
   diaries: [],
   newDiary: {
     title: '',
-    duration: 1,
-    importance: null,
+    duration: undefined,
+    importance: undefined,
   },
 };
 

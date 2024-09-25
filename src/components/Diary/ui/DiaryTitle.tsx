@@ -35,7 +35,7 @@ export const DiaryTitle: FC<IProps> = ({ isChangingTitle, setIsChangingTitle, di
   }
   return (
     <Paragraph
-      text={diary.title}
+      text={diary?.title || '*Пустая цель*'}
       style={{
         wordBreak: 'break-all',
       }}

@@ -9,7 +9,7 @@ interface IProps extends ISelectProps {
   setDuration: (newDuration: number) => void;
 }
 
-export const DurationSelect: FC<IProps> = ({ duration = 1, setDuration, ...props }) => {
+export const DurationSelect: FC<IProps> = ({ duration = undefined, setDuration, ...props }) => {
   return (
     <Select
       value={duration}

@@ -27,7 +27,7 @@ export const $efficiency = combine($main, $diary, (main, diary) => {
   const efficiency = main?.user?.settings?.efficiency;
 
   const timeCost = diary?.diaries?.reduce((prev, next) => {
-    return prev + Number(next.duration) || 0;
+    return prev + Number(next?.duration || 0);
   }, 0);
 
   const timeLost = efficiency - timeCost;
