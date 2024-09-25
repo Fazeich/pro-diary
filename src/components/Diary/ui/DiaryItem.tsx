@@ -1,7 +1,6 @@
 import { Dropdown } from 'antd';
 import { useUnit } from 'effector-react';
 import React, { useState } from 'react';
-import { addDiary, removeDiary } from 'stores/diary/diary';
 import { IDiary } from 'stores/diary/types';
 import { $efficiency, $main } from 'stores/main/main';
 import { Paragraph } from 'uikit/components';
@@ -9,7 +8,8 @@ import { DiaryItemWrapper } from '../styles';
 import { DiaryTitle } from './DiaryTitle';
 import { DiaryDuration } from './DiaryDuration';
 import { DiaryImportance } from './DiaryImportance';
-import { uniqueId } from 'lodash';
+import { cloneDeep } from 'lodash';
+import { createDiaryFx, deleteDiaryFx } from 'stores/diary/diary';
 
 export const DiaryItem = (diary: IDiary) => {
   const [isChangingTitle, setIsChangingTitle] = useState<boolean>(false);
@@ -18,6 +18,7 @@ export const DiaryItem = (diary: IDiary) => {
 
   const { isMobile } = useUnit($main);
   const { timeLost } = useUnit($efficiency);
+  const { user } = useUnit($main);
 
   const contextMenuItems = [
     {
@@ -27,7 +28,14 @@ export const DiaryItem = (diary: IDiary) => {
           theme={timeLost >= (diary?.duration || 0) ? 'primary' : 'secondary'}
           onClick={() => {
             if (timeLost >= (diary?.duration || 0)) {
-              addDiary({ ...diary, id: uniqueId(), title: `${diary.title}*` });
+              const newDiary = cloneDeep(diary);
+
+              delete newDiary._id;
+
+              createDiaryFx({
+                diary: { ...newDiary, title: `${newDiary.title}*` },
+                userId: user.id,
+              });
             }
           }}
         />
@@ -48,7 +56,14 @@ export const DiaryItem = (diary: IDiary) => {
       key: 'rename',
     },
     {
-      label: <Paragraph text='Удалить' onClick={() => removeDiary(diary.id)} />,
+      label: (
+        <Paragraph
+          text='Удалить'
+          onClick={() => {
+            deleteDiaryFx({ diaryId: diary._id });
+          }}
+        />
+      ),
       key: 'delete',
     },
   ];

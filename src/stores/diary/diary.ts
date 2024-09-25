@@ -1,6 +1,12 @@
 import { getSortedDiaries } from './utils';
 import { createEffect, createEvent, createStore } from 'effector';
-import { IDiary, IDiaryStore } from './types';
+import {
+  ICreateDiaryParams,
+  IDeleteDiaryParams,
+  IDiary,
+  IDiaryStore,
+  IGetDiaryParams,
+} from './types';
 import { request } from 'api/api';
 import axios from 'axios';
 
@@ -15,37 +21,45 @@ const init: IDiaryStore = {
 
 export const $diary = createStore<IDiaryStore>(init);
 
-export const addDiary = createEvent<IDiary>();
-
-export const removeDiary = createEvent<React.Key>();
-
 export const changeNewDiary = createEvent<Partial<IDiary>>();
-
-export const changeDiary = createEvent<IDiary>();
 
 export const resetNewDiary = createEvent();
 
-export const getDiariesFx = createEffect(async () => {
-  const req = await axios.get<IDiary[]>('/api/diaries');
+export const getDiariesFx = createEffect(async (params: IGetDiaryParams) => {
+  const req = await axios.get<IDiary[]>('/api/diaries', {
+    params,
+  });
 
-  return req.data;
+  if (req?.data) {
+    return req.data;
+  }
+});
+
+export const createDiaryFx = createEffect(async (params: ICreateDiaryParams) => {
+  const req = await axios.post<IDiary[]>('/api/diaries/create', params);
+
+  if (req?.data) {
+    return req.data;
+  }
+});
+
+export const changeDiaryFx = createEffect(async (params: IDiary) => {
+  const req = await axios.put(`/api/diaries/${params?._id}`, params);
+
+  return req;
+});
+
+export const deleteDiaryFx = createEffect(async ({ diaryId }: IDeleteDiaryParams) => {
+  const req = await axios.delete(`/api/diaries/${diaryId}`, {
+    params: {
+      id: diaryId,
+    },
+  });
+
+  return req;
 });
 
 $diary
-  .on(addDiary, (state, payload) => {
-    const newDiaries = getSortedDiaries([...state.diaries, payload]);
-
-    return {
-      ...state,
-      diaries: newDiaries,
-    };
-  })
-  .on(removeDiary, (state, payload) => {
-    return {
-      ...state,
-      diaries: state.diaries.filter((diary) => diary.id !== payload),
-    };
-  })
   .on(changeNewDiary, (state, payload) => {
     return {
       ...state,
@@ -55,20 +69,14 @@ $diary
       },
     };
   })
-  .on(changeDiary, (state, payload) => {
+  .on(getDiariesFx.done, (state, { result }) => {
     return {
       ...state,
-      diaries: state.diaries.map((diary) => {
-        if (diary.id === payload.id) {
-          return payload;
-        }
-
-        return diary;
-      }),
+      // @ts-ignore
+      diaries: getSortedDiaries(result.data),
     };
   })
-  .on(getDiariesFx.done, (state, { result }) => {
-    console.log(result);
+  .on(createDiaryFx.done, (state, { result }) => {
     return {
       ...state,
       // @ts-ignore
@@ -80,4 +88,5 @@ $diary
       ...state,
       newDiary: init.newDiary,
     };
-  });
+  })
+  .watch(console.log);

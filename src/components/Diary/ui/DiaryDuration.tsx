@@ -1,7 +1,7 @@
 import { DurationSelect } from 'features';
 import { getHours } from 'lib/utils/getHours';
 import React, { FC } from 'react';
-import { changeDiary } from 'stores/diary/diary';
+import { changeDiaryFx } from 'stores/diary/diary';
 import { IDiary } from 'stores/diary/types';
 import { Paragraph } from 'uikit/components';
 import { FlexUnwrap } from '../styles';
@@ -24,7 +24,8 @@ export const DiaryDuration: FC<IProps> = ({ isChangingDuration, setIsChangingDur
         <DurationSelect
           duration={diary.duration}
           setDuration={(value) => {
-            changeDiary({ ...diary, duration: value });
+            changeDiaryFx({ _id: diary._id, duration: value });
+
             setIsChangingDuration(false);
           }}
           defaultOpen

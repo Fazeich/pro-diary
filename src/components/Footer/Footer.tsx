@@ -3,8 +3,7 @@ import { StyledFooter } from './styles';
 import { useUnit } from 'effector-react';
 import { Input, Paragraph, Select } from 'uikit/components';
 import { SendIcon } from 'uikit/icons';
-import { $diary, addDiary, changeNewDiary, resetNewDiary } from 'stores/diary/diary';
-import { uniqueId } from 'lodash';
+import { $diary, changeNewDiary, createDiaryFx, resetNewDiary } from 'stores/diary/diary';
 import { DurationSelect } from 'features';
 import { $efficiency, $main } from 'stores/main/main';
 import { IMPORTANCE_OPTIONS } from 'lib/constants/constants';
@@ -14,12 +13,13 @@ export const Footer = () => {
   const { newDiary } = useUnit($diary);
   const { timeLost } = useUnit($efficiency);
   const { isMobile } = useUnit($main);
+  const { user } = useUnit($main);
 
   const isDisabledAdding = Number(newDiary?.duration || 0) > timeLost;
 
   const handleAddDiary = () => {
     if (!!newDiary?.title && !isDisabledAdding) {
-      addDiary({ ...newDiary, id: Number(uniqueId()) });
+      createDiaryFx({ diary: newDiary, userId: user.id });
 
       resetNewDiary();
     }

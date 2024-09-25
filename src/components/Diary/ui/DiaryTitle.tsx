@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { changeDiary } from 'stores/diary/diary';
+import React, { FC, useState } from 'react';
+import { changeDiaryFx } from 'stores/diary/diary';
 import { IDiary } from 'stores/diary/types';
 import { Input, Paragraph } from 'uikit/components';
 import { CheckIcon } from 'uikit/icons';
@@ -11,13 +11,24 @@ interface IProps {
 }
 
 export const DiaryTitle: FC<IProps> = ({ isChangingTitle, setIsChangingTitle, diary }) => {
+  const [title, setTitle] = useState<string>(diary?.title || '');
+
+  const handleChangeTitle = () => {
+    changeDiaryFx({
+      _id: diary._id,
+      title,
+    });
+
+    setIsChangingTitle(false);
+  };
+
   if (isChangingTitle) {
     return (
       <Input
-        value={diary.title}
-        onChange={({ target: { value } }) => changeDiary({ ...diary, title: value })}
-        onPressEnter={() => setIsChangingTitle(false)}
-        suffix={<CheckIcon cursor='pointer' onClick={() => setIsChangingTitle(false)} />}
+        value={title}
+        onChange={({ target: { value } }) => setTitle(value)}
+        onPressEnter={handleChangeTitle}
+        suffix={<CheckIcon cursor='pointer' onClick={handleChangeTitle} />}
         width={'80%'}
       />
     );

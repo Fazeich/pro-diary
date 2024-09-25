@@ -1,6 +1,6 @@
 import { IMPORTANCE_OPTIONS } from 'lib/constants/constants';
 import React, { FC, useMemo } from 'react';
-import { changeDiary } from 'stores/diary/diary';
+import { changeDiaryFx } from 'stores/diary/diary';
 import { IDiary } from 'stores/diary/types';
 import { Paragraph, Select } from 'uikit/components';
 import { FlexUnwrap } from '../styles';
@@ -34,7 +34,7 @@ export const DiaryImportance: FC<IProps> = ({
         <Select
           value={diary?.importance || null}
           onChange={(value) => {
-            changeDiary({ ...diary, importance: value });
+            changeDiaryFx({ _id: diary._id, importance: value });
 
             setIsChangingImportance(false);
           }}

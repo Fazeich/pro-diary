@@ -1,5 +1,5 @@
 export interface IDiary {
-  id: number | string;
+  _id?: string;
   title?: string;
   duration?: number;
   importance?: 'important' | 'not_important' | null;
@@ -7,5 +7,22 @@ export interface IDiary {
 
 export interface IDiaryStore {
   diaries: IDiary[];
-  newDiary: Partial<IDiary>;
+  newDiary: IDiary;
+}
+
+export interface IGetDiaryParams {
+  userId: string;
+}
+
+export interface IDeleteDiaryParams {
+  diaryId: string;
+}
+
+export interface ICreateDiaryParams {
+  userId: string;
+  diary?: {
+    title?: string;
+    duration?: number;
+    importance?: 'important' | 'not_important' | null;
+  };
 }
