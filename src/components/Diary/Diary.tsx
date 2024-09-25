@@ -12,7 +12,7 @@ import {
 } from 'stores/diary/diary';
 import { DiaryItem } from './ui/DiaryItem';
 import { Paragraph } from 'uikit/components';
-import { Divider } from 'antd';
+import { Divider, Empty, Spin } from 'antd';
 import { Loading3QuartersOutlined } from '@ant-design/icons';
 import { $main } from 'stores/main/main';
 
@@ -41,12 +41,12 @@ export const Diary = () => {
   if (isLoadingDiaries || isPendingDiary) {
     return (
       <NoDiaryWrapper>
-        <Loading3QuartersOutlined />
+        <Spin />
       </NoDiaryWrapper>
     );
   }
 
-  if (diaries.length) {
+  if (diaries?.length) {
     return (
       <DiaryWrapper>
         {diaries.map((diary) => (
@@ -65,8 +65,7 @@ export const Diary = () => {
 
   return (
     <NoDiaryWrapper>
-      <Paragraph text='Пока что у вас нет целей :(' />
-      <Paragraph text='Давайте это исправим!' />
+      <Empty description='Пока что у вас нет целей :(' />
     </NoDiaryWrapper>
   );
 };

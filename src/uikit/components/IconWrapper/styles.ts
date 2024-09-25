@@ -11,10 +11,10 @@ export const StyledIconWrapper = styled.div<{
     transition: all 0.15s ease-in-out;
 
     color: ${({ theme, themeType, disabled }) =>
-      disabled ? theme.secondary.text : theme?.[themeType].text};
+      disabled ? theme.secondary.icon : theme?.[themeType].icon};
 
     &:hover {
-      color: ${({ theme, disabled }) => (disabled ? theme.secondary.text : theme.accent.text)};
+      color: ${({ theme, disabled }) => (disabled ? theme.secondary.icon : theme.accent.icon)};
     }
 
     font-size: ${({ size }) => size}px;

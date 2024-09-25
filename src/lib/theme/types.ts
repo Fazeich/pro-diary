@@ -11,4 +11,5 @@ export interface IThemeItem {
   border: string;
   background: string;
   shadow?: string;
+  icon?: string;
 }

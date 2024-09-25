@@ -22,18 +22,23 @@ export const darkTheme: ITheme = {
 export const lightTheme: ITheme = {
   primary: {
     text: '#222947',
-    background: '#fae0b9',
+    background: '#ffffff',
     border: '#1b1e2b',
     shadow: '2px 2px 10px 0px #59595a',
+    icon: '#808080',
   },
   secondary: {
     text: '#949393',
-    background: '#ffc23e',
-    border: '',
+    background: '#7bbcfa',
+    border: '#1b1e2b',
+    shadow: '2px 2px 10px 0px #59595a',
+    icon: '#a8a8a8',
   },
   accent: {
-    text: '#ff6434',
-    background: '',
-    border: '',
+    text: '#fd5b5b',
+    background: '#a8a8a8',
+    border: '#1b1e2b',
+    shadow: '2px 2px 10px 0px #59595a',
+    icon: '#0084ff',
   },
 };
