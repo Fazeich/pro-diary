@@ -38,7 +38,7 @@ export const DiaryDuration: FC<IProps> = ({ isChangingDuration, setIsChangingDur
     );
   }
 
-  if (diary?.duration) {
+  if (diary?.duration && !diary?.finished) {
     return (
       <Paragraph
         text={`Длительность: ${diary.duration} ${getHours(diary.duration)}`}

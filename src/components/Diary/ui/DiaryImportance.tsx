@@ -46,13 +46,17 @@ export const DiaryImportance: FC<IProps> = ({
     );
   }
 
-  return (
-    <Paragraph
-      text={`Важность: ${importanceLabel}`}
-      style={{
-        minWidth: '200px',
-        maxWidth: '250px',
-      }}
-    />
-  );
+  if (!diary?.finished) {
+    return (
+      <Paragraph
+        text={`Важность: ${importanceLabel}`}
+        style={{
+          minWidth: '200px',
+          maxWidth: '250px',
+        }}
+      />
+    );
+  }
+
+  return <></>;
 };

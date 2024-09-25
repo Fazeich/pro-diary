@@ -38,6 +38,7 @@ export const DiaryTitle: FC<IProps> = ({ isChangingTitle, setIsChangingTitle, di
       text={diary?.title || '*Пустая цель*'}
       style={{
         wordBreak: 'break-all',
+        textDecoration: diary?.finished ? 'line-through' : 'none',
       }}
     />
   );

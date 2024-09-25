@@ -6,7 +6,9 @@ import {
   changeDiaryFx,
   createDiaryFx,
   deleteDiaryFx,
+  finishDiaryFx,
   getDiariesFx,
+  returnDiaryFx,
 } from 'stores/diary/diary';
 import { DiaryItem } from './ui/DiaryItem';
 import { Paragraph } from 'uikit/components';
@@ -24,14 +26,19 @@ export const Diary = () => {
   const isCreatingDiary = useUnit(createDiaryFx.pending);
   const isDeletingDiary = useUnit(deleteDiaryFx.pending);
   const isChangingDiary = useUnit(changeDiaryFx.pending);
+  const isFinishingDiary = useUnit(finishDiaryFx.pending);
+  const isReturningDiary = useUnit(returnDiaryFx.pending);
+
+  const isPendingDiary =
+    isCreatingDiary || isDeletingDiary || isChangingDiary || isFinishingDiary || isReturningDiary;
 
   useEffect(() => {
-    if (user?.id && !isCreatingDiary && !isDeletingDiary && !isChangingDiary) {
+    if (user?.id && !isPendingDiary) {
       getDiariesFx({ userId: user.id });
     }
-  }, [user.id, isCreatingDiary, isDeletingDiary, isChangingDiary]);
+  }, [user.id, isPendingDiary]);
 
-  if (isLoadingDiaries || isCreatingDiary) {
+  if (isLoadingDiaries || isPendingDiary) {
     return (
       <NoDiaryWrapper>
         <Loading3QuartersOutlined />

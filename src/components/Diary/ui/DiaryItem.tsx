@@ -9,7 +9,7 @@ import { DiaryTitle } from './DiaryTitle';
 import { DiaryDuration } from './DiaryDuration';
 import { DiaryImportance } from './DiaryImportance';
 import { cloneDeep } from 'lodash';
-import { createDiaryFx, deleteDiaryFx } from 'stores/diary/diary';
+import { createDiaryFx, deleteDiaryFx, finishDiaryFx, returnDiaryFx } from 'stores/diary/diary';
 
 export const DiaryItem = (diary: IDiary) => {
   const [isChangingTitle, setIsChangingTitle] = useState<boolean>(false);
@@ -52,7 +52,7 @@ export const DiaryItem = (diary: IDiary) => {
       key: 'reimpotance',
     },
     {
-      label: <Paragraph text='Переименовать' onClick={() => setIsChangingTitle(true)} />,
+      label: <Paragraph text='Изменить задачу' onClick={() => setIsChangingTitle(true)} />,
       key: 'rename',
     },
     {
@@ -65,6 +65,21 @@ export const DiaryItem = (diary: IDiary) => {
         />
       ),
       key: 'delete',
+    },
+    {
+      label: (
+        <Paragraph
+          text={diary?.finished ? 'Вернуть' : 'Завершить'}
+          onClick={() => {
+            if (diary?.finished) {
+              returnDiaryFx({ diaryId: diary?._id });
+            } else {
+              finishDiaryFx({ diaryId: diary._id });
+            }
+          }}
+        />
+      ),
+      key: 'finish',
     },
   ];
 

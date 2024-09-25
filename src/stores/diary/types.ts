@@ -2,6 +2,7 @@ export interface IDiary {
   _id?: string;
   title?: string;
   duration?: number;
+  finished?: boolean;
   importance?: 'important' | 'not_important' | null;
 }
 
