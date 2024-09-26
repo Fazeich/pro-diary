@@ -1,16 +1,15 @@
-import { Divider, Empty, Spin } from 'antd';
+import { Divider, Dropdown, Empty, Spin } from 'antd';
 import { uniqueId } from 'lodash';
 import React, { FC } from 'react';
 import { IDiary } from 'stores/diary/types';
-import { Paragraph } from 'uikit/components';
-import { DiaryItemWrapper } from '../styles';
+import { Diary } from './Diary';
 
 interface IProps {
   diaries: IDiary[];
   loading: boolean;
 }
 
-export const Diaries = ({ diaries, loading }: IProps) => {
+export const Diaries: FC<IProps> = ({ diaries, loading }) => {
   if (loading) {
     return <Spin />;
   }
@@ -24,9 +23,7 @@ export const Diaries = ({ diaries, loading }: IProps) => {
       {diaries?.map((diary) => {
         return (
           <>
-            <DiaryItemWrapper>
-              <Paragraph text={diary?.title} key={uniqueId()} />
-            </DiaryItemWrapper>
+            <Diary {...diary} key={uniqueId()} />
             <Divider
               key={uniqueId()}
               style={{

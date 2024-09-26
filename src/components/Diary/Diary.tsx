@@ -3,12 +3,14 @@ import { DiaryWrapper, NoDiaryWrapper } from './styles';
 import { useUnit } from 'effector-react';
 import {
   $diary,
+  archiveDiaryFx,
   changeDiaryFx,
   createDiaryFx,
   deleteDiaryFx,
   finishDiaryFx,
   getDiariesFx,
   returnDiaryFx,
+  unarchiveDiaryFx,
 } from 'stores/diary/diary';
 import { DiaryItem } from './ui/DiaryItem';
 import { Divider, Empty, Spin } from 'antd';
@@ -27,9 +29,17 @@ export const Diary = () => {
   const isChangingDiary = useUnit(changeDiaryFx.pending);
   const isFinishingDiary = useUnit(finishDiaryFx.pending);
   const isReturningDiary = useUnit(returnDiaryFx.pending);
+  const isArchivingDiary = useUnit(archiveDiaryFx.pending);
+  const isUnarchivingDiary = useUnit(unarchiveDiaryFx.pending);
 
   const isPendingDiary =
-    isCreatingDiary || isDeletingDiary || isChangingDiary || isFinishingDiary || isReturningDiary;
+    isCreatingDiary ||
+    isDeletingDiary ||
+    isChangingDiary ||
+    isFinishingDiary ||
+    isReturningDiary ||
+    isArchivingDiary ||
+    isUnarchivingDiary;
 
   useEffect(() => {
     if (user?.id && !isPendingDiary) {

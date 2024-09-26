@@ -117,6 +117,18 @@ export const returnDiaryFx = createEffect(async ({ diaryId }: IDeleteDiaryParams
   return req;
 });
 
+export const archiveDiaryFx = createEffect(async ({ diaryId }: IDeleteDiaryParams) => {
+  const req = await axios.post('/api/diaries/archive', { id: diaryId });
+
+  return req;
+});
+
+export const unarchiveDiaryFx = createEffect(async ({ diaryId }: IDeleteDiaryParams) => {
+  const req = await axios.post('/api/diaries/archive/return', { id: diaryId });
+
+  return req;
+});
+
 $diary
   .on(changeNewDiary, (state, payload) => {
     return {
