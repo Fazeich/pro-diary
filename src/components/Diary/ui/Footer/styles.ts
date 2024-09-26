@@ -6,7 +6,8 @@ export const StyledFooter = styled.div<{ isMobile: boolean }>`
 
   box-shadow: ${({ theme }) => theme.primary.shadow};
 
-  height: ${({ isMobile }) => (isMobile ? FOOTER_HEIGHT - 20 : FOOTER_HEIGHT)}px;
+  min-height: ${FOOTER_HEIGHT}px;
+  max-height: ${FOOTER_HEIGHT}px;
 
   ${({ isMobile }) => {
     if (isMobile) {

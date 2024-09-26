@@ -1,5 +1,4 @@
 import { Diary, Footer, Header, Sidebar } from 'components';
-import { useUnit } from 'effector-react';
 import { DiaryLayout } from 'layouts';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';

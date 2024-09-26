@@ -8,11 +8,20 @@ export interface IDiary {
 
 export interface IDiaryStore {
   diaries: IDiary[];
+  archive: {
+    finished: IDiary[];
+    unfinished: IDiary[];
+  };
   newDiary: IDiary;
 }
 
 export interface IGetDiaryParams {
   userId: string;
+}
+
+export interface IGetArchivedDiaryParams {
+  userId: string;
+  finished?: boolean;
 }
 
 export interface IDeleteDiaryParams {

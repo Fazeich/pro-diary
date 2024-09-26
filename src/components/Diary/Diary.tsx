@@ -11,10 +11,9 @@ import {
   returnDiaryFx,
 } from 'stores/diary/diary';
 import { DiaryItem } from './ui/DiaryItem';
-import { Paragraph } from 'uikit/components';
 import { Divider, Empty, Spin } from 'antd';
-import { Loading3QuartersOutlined } from '@ant-design/icons';
 import { $main } from 'stores/main/main';
+import { uniqueId } from 'lodash';
 
 export const Diary = () => {
   // stores
@@ -49,10 +48,11 @@ export const Diary = () => {
   if (diaries?.length) {
     return (
       <DiaryWrapper>
-        {diaries.map((diary) => (
+        {diaries?.map((diary) => (
           <>
-            <DiaryItem {...diary} />
+            <DiaryItem {...diary} key={uniqueId()} />
             <Divider
+              key={uniqueId()}
               style={{
                 margin: 0,
               }}

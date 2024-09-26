@@ -10,3 +10,23 @@ export const StyledDrawer = styled(Drawer)<{ isMobile?: boolean }>`
 
   background-color: black;
 `;
+
+export const StyledSidebarWrapper = styled.div<{ isMobile?: boolean }>`
+  display: flex;
+
+  height: 100%;
+
+  ${({ isMobile }) => {
+    if (isMobile) {
+      return `
+        flex-direction: column;
+      `;
+    }
+
+    return `
+      align-items: center;
+    `;
+  }}
+
+  gap: 20px;
+`;

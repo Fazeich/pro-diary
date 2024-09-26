@@ -1,16 +1,20 @@
-import { getSortedDiaries } from './utils';
 import { createEffect, createEvent, createStore } from 'effector';
 import {
   ICreateDiaryParams,
   IDeleteDiaryParams,
   IDiary,
   IDiaryStore,
+  IGetArchivedDiaryParams,
   IGetDiaryParams,
 } from './types';
 import axios from 'axios';
 
 const init: IDiaryStore = {
   diaries: [],
+  archive: {
+    finished: [],
+    unfinished: [],
+  },
   newDiary: {
     title: '',
     duration: undefined,
@@ -33,6 +37,49 @@ export const getDiariesFx = createEffect(async (params: IGetDiaryParams) => {
     return req.data;
   }
 });
+
+// export const getArchivedDiariesFx = createEffect(async (params: IGetArchivedDiaryParams) => {
+//   // Возвращает все архивные задачи. Можно передать фильтр finished
+//   const req = await axios.get<IDiary[]>('/api/diaries/archive', {
+//     params,
+//   });
+
+//   if (req?.data) {
+//     return req.data;
+//   }
+// });
+
+export const getArchivedFinishedDiariesFx = createEffect(
+  async (params: IGetArchivedDiaryParams) => {
+    // Возвращает все архивные задачи. Можно передать фильтр finished
+    const req = await axios.get<IDiary[]>('/api/diaries/archive', {
+      params: {
+        ...params,
+        finished: true,
+      },
+    });
+
+    if (req?.data) {
+      return req.data;
+    }
+  }
+);
+
+export const getArchivedUnfinishedDiariesFx = createEffect(
+  async (params: IGetArchivedDiaryParams) => {
+    // Возвращает все архивные задачи. Можно передать фильтр finished
+    const req = await axios.get<IDiary[]>('/api/diaries/archive', {
+      params: {
+        ...params,
+        finished: false,
+      },
+    });
+
+    if (req?.data) {
+      return req.data;
+    }
+  }
+);
 
 export const createDiaryFx = createEffect(async (params: ICreateDiaryParams) => {
   const req = await axios.post<IDiary[]>('/api/diaries/create', params);
@@ -83,15 +130,25 @@ $diary
   .on(getDiariesFx.done, (state, { result }) => {
     return {
       ...state,
-      // @ts-ignore
-      diaries: getSortedDiaries(result.data),
+      diaries: result,
     };
   })
-  .on(createDiaryFx.done, (state, { result }) => {
+  .on(getArchivedFinishedDiariesFx.done, (state, { result }) => {
     return {
       ...state,
-      // @ts-ignore
-      diaries: getSortedDiaries(result.data),
+      archive: {
+        ...state.archive,
+        finished: result,
+      },
+    };
+  })
+  .on(getArchivedUnfinishedDiariesFx.done, (state, { result }) => {
+    return {
+      ...state,
+      archive: {
+        ...state.archive,
+        unfinished: result,
+      },
     };
   })
   .on(resetNewDiary, (state) => {
@@ -99,5 +156,4 @@ $diary
       ...state,
       newDiary: init.newDiary,
     };
-  })
-  .watch(console.log);
+  });

@@ -1,24 +1,14 @@
 import React from 'react';
 import { $sidebar, changeSidebarStore } from 'stores/sidebar/sidebar';
 import { useUnit } from 'effector-react';
-import { StyledDrawer } from './styles';
-import { $main, resetMainStore } from 'stores/main/main';
+import { StyledDrawer, StyledSidebarWrapper } from './styles';
+import { $main } from 'stores/main/main';
 import { Button } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { router } from 'lib/constants/router';
 
 export const Sidebar = () => {
   const { isOpen, size } = useUnit($sidebar);
   const { isMobile } = useUnit($main);
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    resetMainStore();
-    localStorage.removeItem('token');
-
-    changeSidebarStore({ isOpen: false });
-
-    navigate('/');
-  };
 
   return (
     <StyledDrawer
@@ -26,12 +16,16 @@ export const Sidebar = () => {
       size={size}
       placement='top'
       onClose={() => changeSidebarStore({ isOpen: false })}
-      height={isMobile ? '100%' : 250}
+      height={isMobile ? '100%' : 125}
       isMobile={isMobile}
       title='ProDiary'
       closable={isMobile}
     >
-      <Button onClick={handleLogout}>Выход</Button>
+      <StyledSidebarWrapper>
+        <Button onClick={() => {}} type='primary'>
+          Архив
+        </Button>
+      </StyledSidebarWrapper>
     </StyledDrawer>
   );
 };

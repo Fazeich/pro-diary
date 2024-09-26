@@ -25,7 +25,8 @@ export const lightTheme: ITheme = {
     background: '#ffffff',
     border: '#1b1e2b',
     shadow: '2px 2px 10px 0px #59595a',
-    icon: '#808080',
+    icon: '#666666',
+    link: '#44a4fd',
   },
   secondary: {
     text: '#949393',
@@ -33,6 +34,7 @@ export const lightTheme: ITheme = {
     border: '#1b1e2b',
     shadow: '2px 2px 10px 0px #59595a',
     icon: '#a8a8a8',
+    link: '#91caff',
   },
   accent: {
     text: '#fd5b5b',
@@ -40,5 +42,6 @@ export const lightTheme: ITheme = {
     border: '#1b1e2b',
     shadow: '2px 2px 10px 0px #59595a',
     icon: '#0084ff',
+    link: '#0059ff',
   },
 };

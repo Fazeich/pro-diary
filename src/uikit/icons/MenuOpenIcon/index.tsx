@@ -3,7 +3,7 @@ import { IIconProps } from 'lib/types/types';
 import React, { FC } from 'react';
 import { IconWrapper } from 'uikit/components';
 
-export const MenuOpen: FC<IIconProps> = (props) => {
+export const MenuOpenIcon: FC<IIconProps> = (props) => {
   return (
     <IconWrapper {...props}>
       <MenuFoldOutlined />
