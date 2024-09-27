@@ -1,4 +1,3 @@
-export type ThemeType = 'light' | 'dark';
 export interface IUser {
   login: string;
   name: string;

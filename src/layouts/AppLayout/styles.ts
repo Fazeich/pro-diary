@@ -5,4 +5,14 @@ export const StyledAppLayout = styled.div`
 
   background: ${({ theme }) =>
     `linear-gradient(0.35turn, ${theme.primary.background}, ${theme.secondary.background})`};
+
+  .ant-dropdown {
+    border: 3px solid red;
+  }
+  .ant-dropdown.ant-dropdown-menu {
+    background-color: ${({ theme }) => theme.primary.background} !important;
+  }
+  ul.ant-dropdown-menu {
+    background-color: ${({ theme }) => theme.primary.background} !important;
+  }
 `;

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 export const AuthPage = () => {
   const navigate = useNavigate();
 
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
 
   useEffect(() => {
     if (token) {

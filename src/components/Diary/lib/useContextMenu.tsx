@@ -1,6 +1,12 @@
 import { useUnit } from 'effector-react';
 import { cloneDeep } from 'lodash';
-import { archiveDiaryFx, createDiaryFx, finishDiaryFx, returnDiaryFx } from 'stores/diary/diary';
+import {
+  archiveDiaryFx,
+  createDiaryFx,
+  deleteDiaryFx,
+  finishDiaryFx,
+  returnDiaryFx,
+} from 'stores/diary/diary';
 import { $efficiency, $main } from 'stores/main/main';
 import { Paragraph } from 'uikit/components';
 
@@ -13,6 +19,7 @@ export const useContextMenu = ({ diary }) => {
       label: (
         <Paragraph
           text='Дублировать'
+          noColor
           theme={timeLost >= (diary?.duration || 0) ? 'primary' : 'secondary'}
           onClick={() => {
             if (timeLost >= (diary?.duration || 0)) {
@@ -31,11 +38,11 @@ export const useContextMenu = ({ diary }) => {
       key: 'dublicate',
       disabled: timeLost < (diary?.duration || 0),
     },
-
     {
       label: (
         <Paragraph
           text={diary?.finished ? 'Вернуть' : 'Завершить'}
+          noColor
           onClick={() => {
             if (diary?.finished) {
               returnDiaryFx({ diaryId: diary?._id });
@@ -51,12 +58,25 @@ export const useContextMenu = ({ diary }) => {
       label: (
         <Paragraph
           text='Архивировать'
+          noColor
           onClick={() => {
             archiveDiaryFx({ diaryId: diary?._id });
           }}
         />
       ),
       key: 'archive',
+    },
+    {
+      label: (
+        <Paragraph
+          text='Удалить'
+          noColor
+          onClick={() => {
+            deleteDiaryFx({ diaryId: diary._id });
+          }}
+        />
+      ),
+      key: 'delete',
     },
   ];
 

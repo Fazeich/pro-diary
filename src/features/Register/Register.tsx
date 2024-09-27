@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { RegisterWrapper, ButtonsWrapper, StyledForm } from './styles';
 import { Input, Paragraph } from 'uikit/components';
-import { Button } from 'antd';
+import { Button, notification } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useUnit } from 'effector-react';
 import { registerFx } from 'stores/main/main';
@@ -19,9 +19,17 @@ export const Register = () => {
     await registerFx({
       login,
       password,
-    }).then(() => {
-      navigate('/');
-    });
+    })
+      .then(() => {
+        navigate('/');
+      })
+      .catch((req) => {
+        const errorMessage = req?.response?.data?.message;
+
+        notification.error({
+          message: errorMessage || 'Не удалось зарегистрироваться. \nПопробуйте попытку позже',
+        });
+      });
   };
 
   return (

@@ -60,3 +60,10 @@ export const NavigationLink = styled(Paragraph)<{ active?: boolean; disabled?: b
     }};
   }
 `;
+
+export const ActionsWrapper = styled.div`
+  display: flex;
+
+  align-items: center;
+  gap: 20px;
+`;

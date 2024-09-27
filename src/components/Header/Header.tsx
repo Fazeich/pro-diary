@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationLink, NavigationWrapper, StyledHeader } from './styles';
+import { ActionsWrapper, NavigationLink, NavigationWrapper, StyledHeader } from './styles';
 import { MenuCloseIcon, MenuOpenIcon } from 'uikit/icons';
 import { $sidebar, changeSidebarStore } from 'stores/sidebar/sidebar';
 import { useUnit } from 'effector-react';
@@ -7,6 +7,7 @@ import { $main } from 'stores/main/main';
 import { LogoutIcon } from 'uikit/icons/LogoutIcon';
 import { useNavigate } from 'react-router-dom';
 import { handleLogout } from 'stores/main/utils';
+import { ThemeChanger } from 'features';
 
 export const Header = () => {
   const { isOpen } = useUnit($sidebar);
@@ -25,25 +26,32 @@ export const Header = () => {
 
       <NavigationWrapper>
         <NavigationLink
+          noColor={false}
           text='Главная'
           active={path === 'diary'}
           onClick={() => navigate('/diary')}
         />
         <NavigationLink
+          noColor={false}
           text='Архив'
           active={path === 'archive'}
           onClick={() => navigate('/archive')}
         />
       </NavigationWrapper>
 
-      <LogoutIcon
-        cursor='pointer'
-        onClick={() => {
-          handleLogout();
+      <ActionsWrapper>
+        <ThemeChanger />
 
-          navigate('/');
-        }}
-      />
+        <LogoutIcon
+          cursor='pointer'
+          tooltipTitle='Выход'
+          onClick={() => {
+            handleLogout();
+
+            navigate('/');
+          }}
+        />
+      </ActionsWrapper>
     </StyledHeader>
   );
 };

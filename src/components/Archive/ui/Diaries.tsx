@@ -1,8 +1,9 @@
-import { Divider, Dropdown, Empty, Spin } from 'antd';
+import { Empty } from 'antd';
 import { uniqueId } from 'lodash';
 import React, { FC } from 'react';
 import { IDiary } from 'stores/diary/types';
 import { Diary } from './Diary';
+import { Divider, Loader } from 'features';
 
 interface IProps {
   diaries: IDiary[];
@@ -11,7 +12,7 @@ interface IProps {
 
 export const Diaries: FC<IProps> = ({ diaries, loading }) => {
   if (loading) {
-    return <Spin />;
+    return <Loader />;
   }
 
   if (!diaries?.length) {
@@ -24,12 +25,7 @@ export const Diaries: FC<IProps> = ({ diaries, loading }) => {
         return (
           <>
             <Diary {...diary} key={uniqueId()} />
-            <Divider
-              key={uniqueId()}
-              style={{
-                margin: 0,
-              }}
-            />
+            <Divider key={uniqueId()} />
           </>
         );
       })}

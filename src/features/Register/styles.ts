@@ -13,7 +13,7 @@ export const RegisterWrapper = styled.div`
 
   gap: 20px;
 
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: ${({ theme }) => theme.accent.background};
 
   padding: 40px;
 

@@ -7,17 +7,19 @@ interface IProps extends HTMLAttributes<HTMLParagraphElement> {
   text?: string;
   size?: number;
   weight?: number;
+  noColor?: boolean;
 }
 
 export const Paragraph: FC<IProps> = ({
   text = '',
   size = 18,
   weight = 500,
+  noColor = false,
   theme = 'primary',
   ...props
 }) => {
   return (
-    <StyledParagraph size={size} weight={weight} themeType={theme} {...props}>
+    <StyledParagraph size={size} weight={weight} themeType={theme} noColor={noColor} {...props}>
       {text}
     </StyledParagraph>
   );

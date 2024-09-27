@@ -4,6 +4,7 @@ import { darkTheme, lightTheme } from 'lib/theme/theme';
 import { ThemeProvider } from 'styled-components';
 import { StyledAppLayout } from './styles';
 import { $main, getMeFx } from 'stores/main/main';
+import { $theme } from 'stores/theme/theme';
 
 interface IProps {
   children: any;
@@ -11,7 +12,7 @@ interface IProps {
 
 export const AppLayout: FC<IProps> = ({ children }) => {
   const { user } = useUnit($main);
-  const theme = localStorage.getItem('theme');
+  const { theme } = useUnit($theme);
 
   const uiTheme = theme === 'light' ? lightTheme : darkTheme;
 

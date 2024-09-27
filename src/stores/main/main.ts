@@ -19,7 +19,6 @@ export const $main = createStore<IMainStore>({
       efficiency: 12,
     },
   },
-
   isMobile,
 });
 
@@ -48,7 +47,7 @@ export const authFx = createEffect(async (params: IAuthParams) => {
 });
 
 export const getMeFx = createEffect(async () => {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
 
   if (token) {
     const req = await axios.post<{ user: IUser }>('/api/me', {
@@ -85,7 +84,7 @@ $main
       data: { token = '', user },
     } = result;
 
-    localStorage.setItem('token', token);
+    sessionStorage.setItem('token', token);
 
     return {
       ...state,

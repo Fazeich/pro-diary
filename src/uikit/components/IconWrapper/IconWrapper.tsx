@@ -26,7 +26,7 @@ export const IconWrapper: FC<IProps> = ({
 
   return (
     <StyledIconWrapper size={size} themeType={theme} cursor={cursor} disabled={disabled} {...props}>
-      <Tooltip title={tooltipTitle} placement='topLeft' arrow={true} forceRender>
+      <Tooltip title={tooltipTitle} arrow={true}>
         {children}
       </Tooltip>
     </StyledIconWrapper>

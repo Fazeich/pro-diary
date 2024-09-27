@@ -6,8 +6,6 @@ import { RouterProvider } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-localStorage.setItem('theme', 'light');
-
 root.render(
   <React.StrictMode>
     <AppLayout>

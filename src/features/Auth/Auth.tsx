@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { AuthWrapper, ButtonsWrapper, StyledForm } from './styles';
 import { Input, Paragraph } from 'uikit/components';
-import { Button } from 'antd';
+import { Button, notification } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useUnit } from 'effector-react';
 import { authFx } from 'stores/main/main';
@@ -19,16 +19,40 @@ export const Auth = () => {
     await authFx({
       login,
       password,
-    }).then(() => {
-      navigate('/diary');
-    });
+    })
+      .then(() => {
+        navigate('/diary');
+      })
+      .catch((req) => {
+        const errorMessage = req?.response?.data?.message;
+
+        notification.error({
+          message: errorMessage || 'Не удалось авторизоваться. \nПопробуйте попытку позже',
+        });
+      });
   };
 
   return (
     <AuthWrapper>
       <Paragraph text='Авторизация' size={48} />
 
-      <StyledForm form={form} name='auth_form' onFinish={handleAuth}>
+      <StyledForm
+        form={form}
+        name='auth_form'
+        onFinish={handleAuth}
+        onFieldsChange={() => {
+          form.setFields([
+            {
+              name: 'login',
+              errors: [],
+            },
+            {
+              name: 'password',
+              errors: [],
+            },
+          ]);
+        }}
+      >
         <StyledForm.Item noStyle name='login' rules={[{ required: true }]}>
           <Input placeholder='Логин' disabled={isLogging} />
         </StyledForm.Item>
@@ -38,8 +62,8 @@ export const Auth = () => {
         </StyledForm.Item>
 
         <ButtonsWrapper>
-          <StyledForm.Item noStyle>
-            <Button size='large' onClick={handleAuth} loading={isLogging} htmlType='submit'>
+          <StyledForm.Item noStyle name={'submit-button'}>
+            <Button size='large' loading={isLogging} htmlType='submit'>
               Войти
             </Button>
           </StyledForm.Item>

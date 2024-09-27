@@ -2,20 +2,12 @@ import { Dropdown } from 'antd';
 import { useUnit } from 'effector-react';
 import React, { useState } from 'react';
 import { IDiary } from 'stores/diary/types';
-import { $efficiency, $main } from 'stores/main/main';
+import { $main } from 'stores/main/main';
 import { Paragraph } from 'uikit/components';
 import { DiaryItemWrapper } from '../styles';
 import { DiaryTitle } from './DiaryTitle';
 import { DiaryDuration } from './DiaryDuration';
 import { DiaryImportance } from './DiaryImportance';
-import { cloneDeep } from 'lodash';
-import {
-  archiveDiaryFx,
-  createDiaryFx,
-  deleteDiaryFx,
-  finishDiaryFx,
-  returnDiaryFx,
-} from 'stores/diary/diary';
 import { useContextMenu } from '../lib/useContextMenu';
 
 export const DiaryItem = (diary: IDiary) => {
@@ -31,15 +23,25 @@ export const DiaryItem = (diary: IDiary) => {
 
   const additionalContext = [
     {
-      label: <Paragraph text='Изменить название' onClick={() => setIsChangingTitle(true)} />,
+      label: (
+        <Paragraph text='Изменить название' noColor onClick={() => setIsChangingTitle(true)} />
+      ),
       key: 'rename',
     },
     {
-      label: <Paragraph text='Изменить длительность' onClick={() => setIsChangingDuration(true)} />,
+      label: (
+        <Paragraph
+          text='Изменить длительность'
+          noColor
+          onClick={() => setIsChangingDuration(true)}
+        />
+      ),
       key: 'reduration',
     },
     {
-      label: <Paragraph text='Изменить важность' onClick={() => setIsChangingImportance(true)} />,
+      label: (
+        <Paragraph text='Изменить важность' noColor onClick={() => setIsChangingImportance(true)} />
+      ),
       key: 'reimpotance',
     },
   ];

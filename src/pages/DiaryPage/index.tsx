@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { resetMainStore } from 'stores/main/main';
 
 export const DiaryPage = () => {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   const navigate = useNavigate();
 
   useEffect(() => {

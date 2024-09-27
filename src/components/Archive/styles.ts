@@ -10,6 +10,10 @@ export const StyledTabs = styled(Tabs)`
     font-size: 18px;
   }
 
+  .ant-tabs-tab-btn {
+    color: ${({ theme }) => theme.primary.text};
+  }
+
   .ant-tabs-nav {
     margin-bottom: 0;
   }

@@ -3,7 +3,7 @@ import { resetMainStore } from './main';
 
 export const handleLogout = () => {
   resetMainStore();
-  localStorage.removeItem('token');
+  sessionStorage.removeItem('token');
 
   changeSidebarStore({ isOpen: false });
 };

@@ -6,13 +6,19 @@ export const StyledInput = styled(Input)`
 
   background: none !important;
 
-  border-width: 0;
+  border-width: 0 !important;
 
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  border-bottom-width: 2px;
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-width: 2px !important;
 
   box-shadow: none !important;
+
+  color: ${({ theme }) => theme.primary.text} !important;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.secondary.text} !important;
+  }
 
   width: ${({ width }) => {
     if (width) {

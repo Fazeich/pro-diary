@@ -1,3 +1,4 @@
+import { notification } from 'antd';
 import React, { FC, useState } from 'react';
 import { changeDiaryFx } from 'stores/diary/diary';
 import { IDiary } from 'stores/diary/types';
@@ -17,6 +18,12 @@ export const DiaryTitle: FC<IProps> = ({ isChangingTitle, setIsChangingTitle, di
     changeDiaryFx({
       _id: diary._id,
       title,
+    }).catch((req) => {
+      const errorMessage = req?.response?.data?.message;
+
+      notification.error({
+        message: errorMessage || 'Ошибка при получении задач. \nПовторите попытку позже',
+      });
     });
 
     setIsChangingTitle(false);

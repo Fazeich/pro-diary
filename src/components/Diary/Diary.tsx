@@ -13,9 +13,10 @@ import {
   unarchiveDiaryFx,
 } from 'stores/diary/diary';
 import { DiaryItem } from './ui/DiaryItem';
-import { Divider, Empty, Spin } from 'antd';
+import { Empty } from 'antd';
 import { $main } from 'stores/main/main';
 import { uniqueId } from 'lodash';
+import { Divider, Loader } from 'features';
 
 export const Diary = () => {
   // stores
@@ -48,11 +49,7 @@ export const Diary = () => {
   }, [user.id, isPendingDiary]);
 
   if (isLoadingDiaries || isPendingDiary) {
-    return (
-      <NoDiaryWrapper>
-        <Spin />
-      </NoDiaryWrapper>
-    );
+    return <Loader />;
   }
 
   if (diaries?.length) {
@@ -61,12 +58,7 @@ export const Diary = () => {
         {diaries?.map((diary) => (
           <>
             <DiaryItem {...diary} key={uniqueId()} />
-            <Divider
-              key={uniqueId()}
-              style={{
-                margin: 0,
-              }}
-            />
+            <Divider key={uniqueId()} />
           </>
         ))}
       </DiaryWrapper>
