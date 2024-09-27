@@ -1,13 +1,25 @@
-import { DiaryPage, WelcomePage } from "pages";
-import { createBrowserRouter } from "react-router-dom";
+import { DiaryPage, WelcomePage, AuthPage, RegisterPage, ArchivePage } from 'pages';
+import { createBrowserRouter } from 'react-router-dom';
 
 export const router = createBrowserRouter([
   {
-    path: "/welcome",
+    path: '/',
+    element: <AuthPage />,
+  },
+  {
+    path: '/reg',
+    element: <RegisterPage />,
+  },
+  {
+    path: '/welcome',
     element: <WelcomePage />,
   },
   {
-    path: "/",
+    path: '/diary',
     element: <DiaryPage />,
+  },
+  {
+    path: '/archive',
+    element: <ArchivePage />,
   },
 ]);

@@ -1,14 +1,15 @@
-import { createEvent, createStore } from "effector";
-import { IThemeStore } from "./types";
+import { createEvent, createStore } from 'effector';
+import { IThemeStore, ThemeType } from './types';
 
 export const $theme = createStore<IThemeStore>({
-  themeType: "light",
+  theme: 'dark',
 });
 
-export const switchTheme = createEvent();
+export const changeTheme = createEvent<ThemeType>();
 
-$theme.on(switchTheme, (state) => {
+$theme.on(changeTheme, (state, payload) => {
   return {
-    themeType: state.themeType === "light" ? "dark" : "light",
+    ...state,
+    theme: payload,
   };
 });

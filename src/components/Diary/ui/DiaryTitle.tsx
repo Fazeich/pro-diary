@@ -1,8 +1,9 @@
-import React, { FC } from "react";
-import { changeDiary } from "stores/diary/diary";
-import { IDiary } from "stores/diary/types";
-import { Input, Paragraph } from "uikit/components";
-import { CheckIcon } from "uikit/icons";
+import { notification } from 'antd';
+import React, { FC, useState } from 'react';
+import { changeDiaryFx } from 'stores/diary/diary';
+import { IDiary } from 'stores/diary/types';
+import { Input, Paragraph } from 'uikit/components';
+import { CheckIcon } from 'uikit/icons';
 
 interface IProps {
   isChangingTitle: boolean;
@@ -10,34 +11,41 @@ interface IProps {
   diary: IDiary;
 }
 
-export const DiaryTitle: FC<IProps> = ({
-  isChangingTitle,
-  setIsChangingTitle,
-  diary,
-}) => {
+export const DiaryTitle: FC<IProps> = ({ isChangingTitle, setIsChangingTitle, diary }) => {
+  const [title, setTitle] = useState<string>(diary?.title || '');
+
+  const handleChangeTitle = () => {
+    changeDiaryFx({
+      _id: diary._id,
+      title,
+    }).catch((req) => {
+      const errorMessage = req?.response?.data?.message;
+
+      notification.error({
+        message: errorMessage || 'Ошибка при получении задач. \nПовторите попытку позже',
+      });
+    });
+
+    setIsChangingTitle(false);
+  };
+
   if (isChangingTitle) {
     return (
       <Input
-        value={diary.title}
-        onChange={({ target: { value } }) =>
-          changeDiary({ ...diary, title: value })
-        }
-        onPressEnter={() => setIsChangingTitle(false)}
-        suffix={
-          <CheckIcon
-            cursor="pointer"
-            onClick={() => setIsChangingTitle(false)}
-          />
-        }
-        width={"80%"}
+        value={title}
+        onChange={({ target: { value } }) => setTitle(value)}
+        onPressEnter={handleChangeTitle}
+        suffix={<CheckIcon cursor='pointer' onClick={handleChangeTitle} />}
+        width={'80%'}
       />
     );
   }
   return (
     <Paragraph
-      text={diary.title}
+      text={diary?.title || '*Пустая цель*'}
       style={{
-        wordBreak: "break-all",
+        wordBreak: 'break-all',
+        textDecoration: diary?.finished ? 'line-through' : 'none',
       }}
     />
   );

@@ -1,9 +1,9 @@
-import { createEvent, createStore } from "effector";
-import { ISidebarStore } from "./types";
+import { createEvent, createStore } from 'effector';
+import { ISidebarStore } from './types';
 
 export const $sidebar = createStore<ISidebarStore>({
   isOpen: false,
-  size: "default",
+  size: 'default',
 });
 
 export const changeSidebarStore = createEvent<Partial<ISidebarStore>>();

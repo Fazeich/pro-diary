@@ -1,90 +1,73 @@
-import { Dropdown } from "antd";
-import { useUnit } from "effector-react";
-import React, { useState } from "react";
-import { addDiary, removeDiary } from "stores/diary/diary";
-import { IDiary } from "stores/diary/types";
-import { $main } from "stores/main/main";
-import { Paragraph } from "uikit/components";
-import { DiaryItemWrapper } from "../styles";
-import { DiaryTitle } from "./DiaryTitle";
-import { DiaryDuration } from "./DiaryDuration";
-import { DiaryImportance } from "./DiaryImportance";
-import { uniqueId } from "lodash";
+import { Dropdown } from 'antd';
+import { useUnit } from 'effector-react';
+import React, { useState } from 'react';
+import { IDiary } from 'stores/diary/types';
+import { $main } from 'stores/main/main';
+import { Paragraph } from 'uikit/components';
+import { DiaryItemWrapper } from '../styles';
+import { DiaryTitle } from './DiaryTitle';
+import { DiaryDuration } from './DiaryDuration';
+import { DiaryImportance } from './DiaryImportance';
+import { useContextMenu } from '../lib/useContextMenu';
 
 export const DiaryItem = (diary: IDiary) => {
   const [isChangingTitle, setIsChangingTitle] = useState<boolean>(false);
   const [isChangingDuration, setIsChangingDuration] = useState<boolean>(false);
-  const [isChangingImportance, setIsChangingImportance] =
-    useState<boolean>(false);
+  const [isChangingImportance, setIsChangingImportance] = useState<boolean>(false);
+
   const { isMobile } = useUnit($main);
 
-  const contextMenuItems = [
+  const context = useContextMenu({
+    diary,
+  });
+
+  const additionalContext = [
     {
       label: (
-        <Paragraph
-          text="Дублировать"
-          onClick={() => addDiary({ ...diary, id: uniqueId() })}
-        />
+        <Paragraph text='Изменить название' noColor onClick={() => setIsChangingTitle(true)} />
       ),
-      key: "dublicate",
+      key: 'rename',
     },
     {
       label: (
         <Paragraph
-          text="Изменить длительность"
+          text='Изменить длительность'
+          noColor
           onClick={() => setIsChangingDuration(true)}
         />
       ),
-      key: "reduration",
+      key: 'reduration',
     },
     {
       label: (
-        <Paragraph
-          text="Изменить важность"
-          onClick={() => setIsChangingImportance(true)}
-        />
+        <Paragraph text='Изменить важность' noColor onClick={() => setIsChangingImportance(true)} />
       ),
-      key: "reimpotance",
-    },
-    {
-      label: (
-        <Paragraph
-          text="Переименовать"
-          onClick={() => setIsChangingTitle(true)}
-        />
-      ),
-      key: "rename",
-    },
-    {
-      label: <Paragraph text="Удалить" onClick={() => removeDiary(diary.id)} />,
-      key: "delete",
+      key: 'reimpotance',
     },
   ];
 
   return (
     <>
-      <Dropdown menu={{ items: contextMenuItems }} trigger={["contextMenu"]}>
-        <div>
-          <DiaryItemWrapper isMobile={isMobile}>
-            <DiaryTitle
-              diary={diary}
-              isChangingTitle={isChangingTitle}
-              setIsChangingTitle={setIsChangingTitle}
-            />
+      <Dropdown trigger={['contextMenu']} menu={{ items: [...context, ...additionalContext] }}>
+        <DiaryItemWrapper isMobile={isMobile}>
+          <DiaryTitle
+            diary={diary}
+            isChangingTitle={isChangingTitle}
+            setIsChangingTitle={setIsChangingTitle}
+          />
 
-            <DiaryImportance
-              isChangingImportance={isChangingImportance}
-              setIsChangingImportance={setIsChangingImportance}
-              diary={diary}
-            />
+          <DiaryImportance
+            isChangingImportance={isChangingImportance}
+            setIsChangingImportance={setIsChangingImportance}
+            diary={diary}
+          />
 
-            <DiaryDuration
-              diary={diary}
-              isChangingDuration={isChangingDuration}
-              setIsChangingDuration={setIsChangingDuration}
-            />
-          </DiaryItemWrapper>
-        </div>
+          <DiaryDuration
+            diary={diary}
+            isChangingDuration={isChangingDuration}
+            setIsChangingDuration={setIsChangingDuration}
+          />
+        </DiaryItemWrapper>
       </Dropdown>
     </>
   );

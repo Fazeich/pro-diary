@@ -1,5 +1,5 @@
-import { Select } from "antd";
-import styled from "styled-components";
+import { Select } from 'antd';
+import styled from 'styled-components';
 
 export const StyledSelect = styled(Select)<{
   width?: string | number;
@@ -12,8 +12,8 @@ export const StyledSelect = styled(Select)<{
 
     border-width: 0 !important;
 
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
     border-bottom-width: 2px !important;
 
     box-shadow: none !important;
@@ -21,8 +21,11 @@ export const StyledSelect = styled(Select)<{
 
   .ant-select-selection-item {
     font-size: ${({ fontSize }) => `${fontSize}px`};
+    color: ${({ theme }) => theme.primary.text} !important;
   }
+
   .ant-select-selection-placeholder {
     font-size: ${({ fontSize }) => `${fontSize}px`};
+    color: ${({ theme }) => theme.secondary.text} !important;
   }
 `;

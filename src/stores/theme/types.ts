@@ -1,5 +1,5 @@
-export type ThemeType = "light" | "dark";
+export type ThemeType = 'light' | 'dark' | 'custom';
 
 export interface IThemeStore {
-  themeType: ThemeType;
+  theme: ThemeType;
 }

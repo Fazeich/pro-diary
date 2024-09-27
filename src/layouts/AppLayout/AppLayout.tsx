@@ -1,21 +1,29 @@
-import React, { FC } from "react";
-import { useUnit } from "effector-react";
-import { $theme } from "stores/theme/theme";
-import { darkTheme, lightTheme } from "lib/theme/theme";
-import { ThemeProvider } from "styled-components";
-import { StyledAppLayout } from "./styles";
+import React, { FC, useEffect } from 'react';
+import { useUnit } from 'effector-react';
+import { darkTheme, lightTheme } from 'lib/theme/theme';
+import { ThemeProvider } from 'styled-components';
+import { StyledAppLayout } from './styles';
+import { $main, getMeFx } from 'stores/main/main';
+import { $theme } from 'stores/theme/theme';
 
 interface IProps {
   children: any;
 }
 
 export const AppLayout: FC<IProps> = ({ children }) => {
-  const { themeType } = useUnit($theme);
+  const { user } = useUnit($main);
+  const { theme } = useUnit($theme);
 
-  const theme = themeType === "light" ? lightTheme : darkTheme;
+  const uiTheme = theme === 'light' ? lightTheme : darkTheme;
+
+  useEffect(() => {
+    if (!user?.id) {
+      getMeFx();
+    }
+  }, [user?.id]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={uiTheme}>
       <StyledAppLayout>{children}</StyledAppLayout>
     </ThemeProvider>
   );

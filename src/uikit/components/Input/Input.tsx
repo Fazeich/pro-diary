@@ -1,6 +1,6 @@
-import React, { FC } from "react";
-import { StyledInput } from "./styles";
-import { InputProps } from "antd";
+import React, { FC } from 'react';
+import { StyledInput } from './styles';
+import { InputProps } from 'antd';
 
 export interface IInputProps extends InputProps {
   fontSize?: number;

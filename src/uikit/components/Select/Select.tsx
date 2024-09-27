@@ -1,7 +1,8 @@
-import React, { FC } from "react";
-import { StyledSelect } from "./styles";
-import { SelectProps } from "antd";
-import { DefaultOptionType } from "antd/es/select";
+import React, { FC } from 'react';
+import { StyledSelect } from './styles';
+import { SelectProps } from 'antd';
+import { DefaultOptionType } from 'antd/es/select';
+import { uniqueId } from 'lodash';
 
 export interface ISelectProps extends SelectProps {
   width?: string | number;
@@ -30,6 +31,7 @@ export const Select: FC<ISelectProps> = ({
           style={{
             fontSize,
           }}
+          key={uniqueId()}
           disabled={getDisabledOption ? getDisabledOption(option) : false}
         >
           {option?.label || option?.value}

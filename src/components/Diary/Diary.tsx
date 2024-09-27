@@ -1,25 +1,64 @@
-import React from "react";
-import { DiaryWrapper, NoDiaryWrapper } from "./styles";
-import { useUnit } from "effector-react";
-import { $diary } from "stores/diary/diary";
-import { DiaryItem } from "./ui/DiaryItem";
-import { Paragraph } from "uikit/components";
-import { Divider } from "antd";
+import React, { useEffect } from 'react';
+import { DiaryWrapper, NoDiaryWrapper } from './styles';
+import { useUnit } from 'effector-react';
+import {
+  $diary,
+  archiveDiaryFx,
+  changeDiaryFx,
+  createDiaryFx,
+  deleteDiaryFx,
+  finishDiaryFx,
+  getDiariesFx,
+  returnDiaryFx,
+  unarchiveDiaryFx,
+} from 'stores/diary/diary';
+import { DiaryItem } from './ui/DiaryItem';
+import { Empty } from 'antd';
+import { $main } from 'stores/main/main';
+import { uniqueId } from 'lodash';
+import { Divider, Loader } from 'features';
 
 export const Diary = () => {
+  // stores
   const { diaries } = useUnit($diary);
+  const { user } = useUnit($main);
 
-  if (diaries.length) {
+  // pendings
+  const isLoadingDiaries = useUnit(getDiariesFx.pending);
+  const isCreatingDiary = useUnit(createDiaryFx.pending);
+  const isDeletingDiary = useUnit(deleteDiaryFx.pending);
+  const isChangingDiary = useUnit(changeDiaryFx.pending);
+  const isFinishingDiary = useUnit(finishDiaryFx.pending);
+  const isReturningDiary = useUnit(returnDiaryFx.pending);
+  const isArchivingDiary = useUnit(archiveDiaryFx.pending);
+  const isUnarchivingDiary = useUnit(unarchiveDiaryFx.pending);
+
+  const isPendingDiary =
+    isCreatingDiary ||
+    isDeletingDiary ||
+    isChangingDiary ||
+    isFinishingDiary ||
+    isReturningDiary ||
+    isArchivingDiary ||
+    isUnarchivingDiary;
+
+  useEffect(() => {
+    if (user?.id && !isPendingDiary) {
+      getDiariesFx({ userId: user.id });
+    }
+  }, [user.id, isPendingDiary]);
+
+  if (isLoadingDiaries || isPendingDiary) {
+    return <Loader />;
+  }
+
+  if (diaries?.length) {
     return (
       <DiaryWrapper>
-        {diaries.map((diary) => (
+        {diaries?.map((diary) => (
           <>
-            <DiaryItem {...diary} />
-            <Divider
-              style={{
-                margin: 0,
-              }}
-            />
+            <DiaryItem {...diary} key={uniqueId()} />
+            <Divider key={uniqueId()} />
           </>
         ))}
       </DiaryWrapper>
@@ -28,8 +67,7 @@ export const Diary = () => {
 
   return (
     <NoDiaryWrapper>
-      <Paragraph text="Пока что у вас нет целей :(" />
-      <Paragraph text="Давайте это исправим!" />
+      <Empty description='Пока что у вас нет целей :(' />
     </NoDiaryWrapper>
   );
 };

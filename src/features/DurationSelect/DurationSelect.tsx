@@ -1,19 +1,15 @@
-import { HOURS } from "lib/constants/constants";
-import { getHours } from "lib/utils/getHours";
-import React, { FC } from "react";
-import { Select } from "uikit/components";
-import { ISelectProps } from "uikit/components/Select/Select";
+import { HOURS } from 'lib/constants/constants';
+import { getHours } from 'lib/utils/getHours';
+import React, { FC } from 'react';
+import { Select } from 'uikit/components';
+import { ISelectProps } from 'uikit/components/Select/Select';
 
 interface IProps extends ISelectProps {
   duration?: number;
   setDuration: (newDuration: number) => void;
 }
 
-export const DurationSelect: FC<IProps> = ({
-  duration = 1,
-  setDuration,
-  ...props
-}) => {
+export const DurationSelect: FC<IProps> = ({ duration = undefined, setDuration, ...props }) => {
   return (
     <Select
       value={duration}
@@ -22,7 +18,7 @@ export const DurationSelect: FC<IProps> = ({
         value: item,
         label: `${item} ${getHours(item)}`,
       }))}
-      placement="topLeft"
+      placement='topLeft'
       {...props}
     />
   );
