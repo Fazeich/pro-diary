@@ -13,13 +13,15 @@ export const AuthWrapper = styled.div`
 
   gap: 20px;
 
-  background-color: ${({ theme }) => theme.accent.background};
+  background-color: ${({ theme }) => theme.primary.background};
+
+  border: ${({ theme }) => `2px solid ${theme.primary.border}`};
 
   padding: 40px;
 
   border-radius: 15px;
 
-  box-shadow: ${({ theme }) => theme.primary.shadow};
+  box-shadow: ${({ theme }) => `-2px -2px 20px 0 ${theme.primary.shadow}`};
 `;
 
 export const StyledForm = styled(Form)`

@@ -4,6 +4,7 @@ import { changeDiaryFx } from 'stores/diary/diary';
 import { IDiary } from 'stores/diary/types';
 import { Paragraph, Select } from 'uikit/components';
 import { FlexUnwrap } from '../styles';
+import { notification } from 'antd';
 
 interface IProps {
   isChangingImportance: boolean;
@@ -34,7 +35,13 @@ export const DiaryImportance: FC<IProps> = ({
         <Select
           value={diary?.importance || null}
           onChange={(value) => {
-            changeDiaryFx({ _id: diary._id, importance: value });
+            changeDiaryFx({ _id: diary._id, importance: value }).catch((req) => {
+              const errorMessage = req?.response?.data?.message;
+
+              notification.error({
+                message: errorMessage || 'Не удалось изменить важность',
+              });
+            });
 
             setIsChangingImportance(false);
           }}

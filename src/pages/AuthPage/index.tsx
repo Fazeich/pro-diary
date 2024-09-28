@@ -1,6 +1,6 @@
-import { Auth } from 'features';
+import { Auth, ThemeChanger } from 'features';
 import React, { useEffect } from 'react';
-import { AuthPageWrapper } from './styles';
+import { AuthPageWrapper, ThemeChangerWrapper } from './styles';
 import { useNavigate } from 'react-router-dom';
 
 export const AuthPage = () => {
@@ -16,6 +16,9 @@ export const AuthPage = () => {
 
   return (
     <AuthPageWrapper>
+      <ThemeChangerWrapper>
+        <ThemeChanger />
+      </ThemeChangerWrapper>
       <Auth />
     </AuthPageWrapper>
   );

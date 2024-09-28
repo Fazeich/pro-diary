@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { RegisterPageWrapper } from './styles';
-import { Register } from 'features';
+import { RegisterPageWrapper, ThemeChangerWrapper } from './styles';
+import { Register, ThemeChanger } from 'features';
 import { useNavigate } from 'react-router-dom';
 
 export const RegisterPage = () => {
@@ -16,6 +16,9 @@ export const RegisterPage = () => {
 
   return (
     <RegisterPageWrapper>
+      <ThemeChangerWrapper>
+        <ThemeChanger />
+      </ThemeChangerWrapper>
       <Register />
     </RegisterPageWrapper>
   );

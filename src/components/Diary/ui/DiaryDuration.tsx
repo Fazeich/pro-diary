@@ -7,6 +7,7 @@ import { Paragraph } from 'uikit/components';
 import { FlexUnwrap } from '../styles';
 import { useUnit } from 'effector-react';
 import { $efficiency } from 'stores/main/main';
+import { notification } from 'antd';
 
 interface IProps {
   isChangingDuration: boolean;
@@ -24,7 +25,13 @@ export const DiaryDuration: FC<IProps> = ({ isChangingDuration, setIsChangingDur
         <DurationSelect
           duration={diary.duration}
           setDuration={(value) => {
-            changeDiaryFx({ _id: diary._id, duration: value });
+            changeDiaryFx({ _id: diary._id, duration: value }).catch((req) => {
+              const errorMessage = req?.response?.data?.message;
+
+              notification.error({
+                message: errorMessage || 'Не удалось изменить длительность',
+              });
+            });
 
             setIsChangingDuration(false);
           }}

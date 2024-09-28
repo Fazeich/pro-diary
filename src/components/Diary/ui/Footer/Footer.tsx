@@ -8,6 +8,7 @@ import { DurationSelect } from 'features';
 import { $efficiency, $main } from 'stores/main/main';
 import { IMPORTANCE_OPTIONS } from 'lib/constants/constants';
 import { PlusIcon } from 'uikit/icons/PlusIcon';
+import { notification } from 'antd';
 
 export const Footer = () => {
   const { newDiary } = useUnit($diary);
@@ -19,7 +20,13 @@ export const Footer = () => {
 
   const handleAddDiary = () => {
     if (!!newDiary?.title && !isDisabledAdding) {
-      createDiaryFx({ diary: newDiary, userId: user.id });
+      createDiaryFx({ diary: newDiary, userId: user.id }).catch((req) => {
+        const errorMessage = req?.response?.data?.message;
+
+        notification.error({
+          message: errorMessage || 'Не удалось создать задачу',
+        });
+      });
 
       resetNewDiary();
     }

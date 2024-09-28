@@ -22,7 +22,7 @@ export const DiaryTitle: FC<IProps> = ({ isChangingTitle, setIsChangingTitle, di
       const errorMessage = req?.response?.data?.message;
 
       notification.error({
-        message: errorMessage || 'Ошибка при получении задач. \nПовторите попытку позже',
+        message: errorMessage || 'Не удалось изменить название',
       });
     });
 

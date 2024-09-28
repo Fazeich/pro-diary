@@ -2,13 +2,21 @@ import { Drawer } from 'antd';
 import styled from 'styled-components';
 
 export const StyledDrawer = styled(Drawer)<{ isMobile?: boolean }>`
-  .ant-drawer-content-wrapper {
-    /* ${({ isMobile }) => (isMobile ? 'width: 100% !important' : '')}; */
-    width: 100% !important;
-  }
-  width: 100% !important;
+  .ant-drawer-header {
+    background-color: ${({ theme }) => theme.primary.background};
 
-  background-color: black;
+    border-bottom: ${({ theme }) => `2px solid ${theme.secondary.border}`};
+  }
+
+  .ant-drawer-body {
+    background-color: ${({ theme }) => theme.primary.background};
+  }
+
+  .ant-drawer-title {
+    color: ${({ theme }) => theme.primary.text};
+
+    font-size: 18px;
+  }
 `;
 
 export const StyledSidebarWrapper = styled.div<{ isMobile?: boolean }>`

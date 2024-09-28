@@ -3,8 +3,6 @@ import styled from 'styled-components';
 export const DiaryWrapper = styled.div`
   height: 100%;
 
-  padding: 0 20px;
-
   overflow-y: auto;
 
   scrollbar-width: thin;
@@ -13,7 +11,7 @@ export const DiaryWrapper = styled.div`
 export const DiaryItemWrapper = styled.div<{ isMobile: boolean }>`
   position: relative;
 
-  height: 65px;
+  min-height: 65px;
 
   ${({ isMobile }) =>
     isMobile
@@ -28,8 +26,13 @@ export const DiaryItemWrapper = styled.div<{ isMobile: boolean }>`
         `
       : `
         display: grid;
-        grid-template-columns: 1fr 300px 300px;
+
+        grid-template-columns: 6fr 1fr 1fr;
         align-items: center;
+
+        padding: 5px 20px;
+
+        grid-gap: 20px;
       `}
 `;
 

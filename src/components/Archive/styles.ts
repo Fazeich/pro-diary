@@ -21,15 +21,13 @@ export const StyledTabs = styled(Tabs)`
   .ant-tabs-nav-list {
     padding: 0 20px;
   }
-
-  .ant-tabs-content {
-    padding: 0 20px;
-  }
 `;
 
 export const DiaryItemWrapper = styled.div`
   display: flex;
   align-items: center;
 
-  height: 65px;
+  min-height: 65px;
+
+  padding: 5px 20px;
 `;

@@ -13,7 +13,7 @@ import {
   unarchiveDiaryFx,
 } from 'stores/diary/diary';
 import { DiaryItem } from './ui/DiaryItem';
-import { Empty } from 'antd';
+import { Empty, notification } from 'antd';
 import { $main } from 'stores/main/main';
 import { uniqueId } from 'lodash';
 import { Divider, Loader } from 'features';
@@ -44,7 +44,13 @@ export const Diary = () => {
 
   useEffect(() => {
     if (user?.id && !isPendingDiary) {
-      getDiariesFx({ userId: user.id });
+      getDiariesFx({ userId: user.id }).catch((req) => {
+        const errorMessage = req?.response?.data?.message;
+
+        notification.error({
+          message: errorMessage || 'Не удалось получить список задач',
+        });
+      });
     }
   }, [user.id, isPendingDiary]);
 

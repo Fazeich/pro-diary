@@ -10,6 +10,7 @@ import {
 } from 'stores/diary/diary';
 import { useUnit } from 'effector-react';
 import { $main } from 'stores/main/main';
+import { notification } from 'antd';
 
 export const Archive = () => {
   const { user } = useUnit($main);
@@ -43,10 +44,22 @@ export const Archive = () => {
   useEffect(() => {
     if (user?.id && !isPendingsDiary) {
       if (activeKey === 'finished') {
-        getArchivedFinishedDiariesFx({ userId: user.id });
+        getArchivedFinishedDiariesFx({ userId: user.id }).catch((req) => {
+          const errorMessage = req?.response?.data?.message;
+
+          notification.error({
+            message: errorMessage || 'Не удалось получить список задач',
+          });
+        });
       }
       if (activeKey === 'unfinished') {
-        getArchivedUnfinishedDiariesFx({ userId: user.id });
+        getArchivedUnfinishedDiariesFx({ userId: user.id }).catch((req) => {
+          const errorMessage = req?.response?.data?.message;
+
+          notification.error({
+            message: errorMessage || 'Не удалось получить список задач',
+          });
+        });
       }
     }
   }, [user?.id, activeKey, isPendingsDiary]);
