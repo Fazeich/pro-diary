@@ -16,7 +16,8 @@ export const $main = createStore<IMainStore>({
     id: undefined,
 
     settings: {
-      efficiency: 12,
+      isUsingEfficiency: true,
+      efficiency: 6,
     },
   },
   isMobile,
@@ -25,11 +26,13 @@ export const $main = createStore<IMainStore>({
 export const $efficiency = combine($main, $diary, (main, diary) => {
   const efficiency = main?.user?.settings?.efficiency;
 
+  const isUsingEfficiency = main?.user?.settings?.isUsingEfficiency;
+
   const timeCost = diary?.diaries?.reduce((prev, next) => {
     return prev + Number(next?.duration || 0);
   }, 0);
 
-  const timeLost = efficiency - timeCost;
+  const timeLost = isUsingEfficiency ? efficiency - timeCost : Infinity;
 
   return {
     efficiency,

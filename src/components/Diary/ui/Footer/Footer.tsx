@@ -32,23 +32,40 @@ export const Footer = () => {
     }
   };
 
+  const handleCreateEmptyDiary = () => {
+    createDiaryFx({
+      diary: {
+        title: '',
+      },
+      userId: user.id,
+    }).catch((req) => {
+      const errorMessage = req?.response?.data?.message;
+
+      notification.error({
+        message: errorMessage || 'Не удалось создать задачу',
+      });
+    });
+  };
+
   if (isMobile) {
     return (
       <StyledFooter isMobile={isMobile}>
-        <PlusIcon size={45} theme='accent' />
+        <PlusIcon size={45} theme='accent' onClick={handleCreateEmptyDiary} cursor='pointer' />
       </StyledFooter>
     );
   }
 
   return (
     <StyledFooter isMobile={isMobile}>
-      <Paragraph
-        text={`Оставшееся время: ${timeLost}`}
-        theme='accent'
-        style={{
-          minWidth: '200px',
-        }}
-      />
+      {user?.settings?.isUsingEfficiency && (
+        <Paragraph
+          text={`Оставшееся время: ${timeLost}`}
+          theme='accent'
+          style={{
+            minWidth: '200px',
+          }}
+        />
+      )}
 
       <Input
         placeholder='Что необходимо сделать?'

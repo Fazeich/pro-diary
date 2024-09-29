@@ -1,14 +1,15 @@
 import { Dropdown } from 'antd';
 import { useUnit } from 'effector-react';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { IDiary } from 'stores/diary/types';
 import { $main } from 'stores/main/main';
 import { Paragraph } from 'uikit/components';
-import { DiaryItemWrapper } from '../styles';
+import { ActionsWrapper, DiaryItemWrapper } from '../styles';
 import { DiaryTitle } from './DiaryTitle';
 import { DiaryDuration } from './DiaryDuration';
 import { DiaryImportance } from './DiaryImportance';
 import { useContextMenu } from '../lib/useContextMenu';
+import { Divider } from 'features';
 
 export const DiaryItem = (diary: IDiary) => {
   const [isChangingTitle, setIsChangingTitle] = useState<boolean>(false);

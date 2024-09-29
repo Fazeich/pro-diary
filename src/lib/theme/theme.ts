@@ -8,6 +8,7 @@ export const darkTheme: ITheme = {
     shadow: '#000000',
     icon: '#cccccc',
     link: '#cccccc',
+    hover: '#ffffff3a',
   },
   secondary: {
     text: '#949393',
@@ -35,6 +36,7 @@ export const lightTheme: ITheme = {
     shadow: '#757171',
     icon: '#99997d',
     link: '#99997d',
+    hover: '#ffffff3a',
   },
   secondary: {
     text: '#949393',

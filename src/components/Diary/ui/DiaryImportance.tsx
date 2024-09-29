@@ -5,6 +5,8 @@ import { IDiary } from 'stores/diary/types';
 import { Paragraph, Select } from 'uikit/components';
 import { FlexUnwrap } from '../styles';
 import { notification } from 'antd';
+import { useUnit } from 'effector-react';
+import { $main } from 'stores/main/main';
 
 interface IProps {
   isChangingImportance: boolean;
@@ -17,6 +19,8 @@ export const DiaryImportance: FC<IProps> = ({
   setIsChangingImportance,
   diary,
 }) => {
+  const { isMobile } = useUnit($main);
+
   const importanceLabel = useMemo(() => {
     switch (diary.importance) {
       case 'important':
@@ -29,6 +33,28 @@ export const DiaryImportance: FC<IProps> = ({
   }, [diary.importance]);
 
   if (isChangingImportance) {
+    if (isMobile) {
+      return (
+        <Select
+          value={diary?.importance || null}
+          onChange={(value) => {
+            changeDiaryFx({ _id: diary._id, importance: value }).catch((req) => {
+              const errorMessage = req?.response?.data?.message;
+
+              notification.error({
+                message: errorMessage || 'Не удалось изменить важность',
+              });
+            });
+
+            setIsChangingImportance(false);
+          }}
+          defaultOpen
+          options={IMPORTANCE_OPTIONS}
+          width={150}
+        />
+      );
+    }
+
     return (
       <FlexUnwrap>
         <Paragraph onClick={() => setIsChangingImportance(true)} text='Важность: ' />
@@ -53,10 +79,10 @@ export const DiaryImportance: FC<IProps> = ({
     );
   }
 
-  if (!diary?.finished) {
+  if (diary?.importance && !diary?.finished) {
     return (
       <Paragraph
-        text={`Важность: ${importanceLabel}`}
+        text={`${isMobile ? '' : 'Важность: '}${importanceLabel}`}
         style={{
           minWidth: '200px',
           maxWidth: '250px',

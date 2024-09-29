@@ -1,7 +1,9 @@
 import { notification } from 'antd';
+import { useUnit } from 'effector-react';
 import React, { FC, useState } from 'react';
 import { changeDiaryFx } from 'stores/diary/diary';
 import { IDiary } from 'stores/diary/types';
+import { $main } from 'stores/main/main';
 import { Input, Paragraph } from 'uikit/components';
 import { CheckIcon } from 'uikit/icons';
 
@@ -40,11 +42,12 @@ export const DiaryTitle: FC<IProps> = ({ isChangingTitle, setIsChangingTitle, di
       />
     );
   }
+
   return (
     <Paragraph
       text={diary?.title || '*Пустая цель*'}
       style={{
-        wordBreak: 'break-all',
+        wordBreak: 'break-word',
         textDecoration: diary?.finished ? 'line-through' : 'none',
       }}
     />

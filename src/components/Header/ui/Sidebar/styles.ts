@@ -6,6 +6,12 @@ export const StyledDrawer = styled(Drawer)<{ isMobile?: boolean }>`
     background-color: ${({ theme }) => theme.primary.background};
 
     border-bottom: ${({ theme }) => `2px solid ${theme.secondary.border}`};
+
+    .ant-drawer-close {
+      svg {
+        fill: ${({ theme }) => theme.primary.text};
+      }
+    }
   }
 
   .ant-drawer-body {
@@ -20,21 +26,25 @@ export const StyledDrawer = styled(Drawer)<{ isMobile?: boolean }>`
 `;
 
 export const StyledSidebarWrapper = styled.div<{ isMobile?: boolean }>`
+  height: 100%;
+  width: 100%;
+
   display: flex;
 
-  height: 100%;
+  align-items: center;
+  justify-content: center;
 
-  ${({ isMobile }) => {
-    if (isMobile) {
-      return `
-        flex-direction: column;
-      `;
+  flex-direction: column;
+
+  gap: 50px;
+
+  p {
+    cursor: pointer;
+
+    transition: all 0.15s ease-in-out;
+
+    &:hover {
+      color: ${({ theme }) => theme.accent.link};
     }
-
-    return `
-      align-items: center;
-    `;
-  }}
-
-  gap: 20px;
+  }
 `;

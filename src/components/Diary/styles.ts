@@ -11,29 +11,41 @@ export const DiaryWrapper = styled.div`
 export const DiaryItemWrapper = styled.div<{ isMobile: boolean }>`
   position: relative;
 
+  transition: all 0.15s ease-in-out;
+
   min-height: 65px;
 
-  ${({ isMobile }) =>
-    isMobile
-      ? `
+  padding: 20px;
+
+  ${({ isMobile }) => {
+    if (isMobile) {
+      return `
         display: flex;
         flex-direction: column;
-
-        align-items: center;
-
+        align-items: flext-start;
         justify-content: center;
 
-        `
-      : `
-        display: grid;
+        text-align: left;
 
-        grid-template-columns: 6fr 1fr 1fr;
-        align-items: center;
+        gap: 20px;
+      `;
+    }
 
-        padding: 5px 20px;
+    return `
+      display: grid;
 
-        grid-gap: 20px;
-      `}
+      grid-template-columns: 6fr 1fr 1fr;
+      align-items: center;
+
+      grid-gap: 20px;
+    `;
+  }}
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.primary.hover};
+  }
 `;
 
 export const FlexUnwrap = styled.div`
@@ -53,4 +65,21 @@ export const NoDiaryWrapper = styled.div`
 
   align-items: center;
   justify-content: center;
+`;
+
+export const ActionsWrapper = styled.div<{ isMobile: boolean }>`
+  ${({ isMobile }) => {
+    if (isMobile) {
+      return `
+        display: flex;
+        `;
+    }
+
+    return `
+      display: flex;
+      gap: 20px;
+
+      align-items: center;
+    `;
+  }}
 `;

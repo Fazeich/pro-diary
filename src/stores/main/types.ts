@@ -6,6 +6,7 @@ export interface IUser {
 }
 
 export interface ISettings {
+  isUsingEfficiency: boolean;
   efficiency: number;
 }
 

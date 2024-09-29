@@ -8,6 +8,8 @@ import { LogoutIcon } from 'uikit/icons/LogoutIcon';
 import { useNavigate } from 'react-router-dom';
 import { handleLogout } from 'stores/main/utils';
 import { ThemeChanger } from 'features';
+import { Sidebar } from 'components';
+import { LINKS } from './lib/constants';
 
 export const Header = () => {
   const { isOpen } = useUnit($sidebar);
@@ -17,41 +19,51 @@ export const Header = () => {
   const path = location.pathname.split('/')[1];
 
   return (
-    <StyledHeader isMobile={isMobile}>
-      {isOpen ? (
-        <MenuCloseIcon cursor='pointer' onClick={() => changeSidebarStore({ isOpen: false })} />
-      ) : (
-        <MenuOpenIcon cursor='pointer' onClick={() => changeSidebarStore({ isOpen: true })} />
-      )}
+    <>
+      {isMobile && <Sidebar />}
 
-      <NavigationWrapper>
-        <NavigationLink
-          noColor={false}
-          text='Главная'
-          active={path === 'diary'}
-          onClick={() => navigate('/diary')}
-        />
-        <NavigationLink
-          noColor={false}
-          text='Архив'
-          active={path === 'archive'}
-          onClick={() => navigate('/archive')}
-        />
-      </NavigationWrapper>
+      <StyledHeader isMobile={isMobile}>
+        {isMobile ? (
+          <>
+            {isOpen ? (
+              <MenuCloseIcon
+                cursor='pointer'
+                onClick={() => changeSidebarStore({ isOpen: false })}
+              />
+            ) : (
+              <MenuOpenIcon cursor='pointer' onClick={() => changeSidebarStore({ isOpen: true })} />
+            )}
+          </>
+        ) : (
+          <div></div>
+        )}
 
-      <ActionsWrapper>
-        <ThemeChanger />
+        <NavigationWrapper>
+          {!isMobile &&
+            LINKS.map((link) => (
+              <NavigationLink
+                text={link.title}
+                active={path === link.url}
+                onClick={() => navigate(`/${link.url}`)}
+                key={link.id}
+              />
+            ))}
+        </NavigationWrapper>
 
-        <LogoutIcon
-          cursor='pointer'
-          tooltipTitle='Выход'
-          onClick={() => {
-            handleLogout();
+        <ActionsWrapper>
+          <ThemeChanger />
 
-            navigate('/');
-          }}
-        />
-      </ActionsWrapper>
-    </StyledHeader>
+          <LogoutIcon
+            cursor='pointer'
+            tooltipTitle='Выход'
+            onClick={() => {
+              handleLogout();
+
+              navigate('/');
+            }}
+          />
+        </ActionsWrapper>
+      </StyledHeader>
+    </>
   );
 };
