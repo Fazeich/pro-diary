@@ -5,7 +5,7 @@ import { StyledDrawer, StyledSidebarWrapper } from './styles';
 import { $main } from 'stores/main/main';
 import { Paragraph } from 'uikit/components';
 import { useNavigate } from 'react-router-dom';
-import { LINKS } from 'components/Header/lib/constants';
+import { LINKS } from 'lib/constants/links';
 
 export const Sidebar = () => {
   const { isOpen, size } = useUnit($sidebar);

@@ -1,9 +1,8 @@
-import { Empty } from 'antd';
 import { uniqueId } from 'lodash';
 import React, { FC } from 'react';
 import { IDiary } from 'stores/diary/types';
 import { Diary } from './Diary';
-import { Divider, Loader } from 'features';
+import { Divider, Loader, Empty } from 'features';
 
 interface IProps {
   diaries: IDiary[];

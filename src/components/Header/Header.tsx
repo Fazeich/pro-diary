@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { handleLogout } from 'stores/main/utils';
 import { ThemeChanger } from 'features';
 import { Sidebar } from 'components';
-import { LINKS } from './lib/constants';
+import { LINKS } from 'lib/constants/links';
 
 export const Header = () => {
   const { isOpen } = useUnit($sidebar);

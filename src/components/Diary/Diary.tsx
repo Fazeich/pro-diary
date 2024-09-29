@@ -13,10 +13,10 @@ import {
   unarchiveDiaryFx,
 } from 'stores/diary/diary';
 import { DiaryItem } from './ui/DiaryItem';
-import { Empty, notification } from 'antd';
+import { notification } from 'antd';
 import { $main } from 'stores/main/main';
 import { uniqueId } from 'lodash';
-import { Divider, Loader } from 'features';
+import { Divider, Loader, Empty } from 'features';
 
 export const Diary = () => {
   // stores
