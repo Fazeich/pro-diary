@@ -9,6 +9,7 @@ import { $efficiency, $main } from 'stores/main/main';
 import { IMPORTANCE_OPTIONS } from 'lib/constants/constants';
 import { PlusIcon } from 'uikit/icons/PlusIcon';
 import { notification } from 'antd';
+import { getHourDescription } from 'lib/utils/getHours';
 
 export const Footer = () => {
   const { newDiary } = useUnit($diary);
@@ -47,6 +48,20 @@ export const Footer = () => {
     });
   };
 
+  const getEfficincyDescription = () => {
+    if (timeLost > 0) {
+      return `Оставшееся время: ${timeLost} ${getHourDescription(timeLost)}`;
+    }
+
+    if (timeLost === 0) {
+      return 'Время заполнено';
+    }
+
+    if (timeLost < 0) {
+      return `Просрочено на: ${Math.abs(timeLost)} ${getHourDescription(Math.abs(timeLost))}`;
+    }
+  };
+
   if (isMobile) {
     return (
       <StyledFooter isMobile={isMobile}>
@@ -59,10 +74,12 @@ export const Footer = () => {
     <StyledFooter isMobile={isMobile}>
       {user?.settings?.isUsingEfficiency && (
         <Paragraph
-          text={`Оставшееся время: ${timeLost}`}
+          text={getEfficincyDescription()}
           theme='accent'
           style={{
-            minWidth: '200px',
+            minWidth: '175px',
+            maxWidth: '250px',
+            width: '100%',
           }}
         />
       )}

@@ -3,3 +3,7 @@ export { Input } from './Input/Input';
 export { TextArea } from './TextArea/TextArea';
 export { Select } from './Select/Select';
 export { Paragraph } from './Paragraph/Paragraph';
+export { Divider } from './Divider/Divider';
+export { Empty } from './Empty/Empty';
+export { Loader } from './Loader/Loader';
+export { Modal } from './Modal/Modal';

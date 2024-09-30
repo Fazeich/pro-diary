@@ -10,6 +10,7 @@ import { handleLogout } from 'stores/main/utils';
 import { ThemeChanger } from 'features';
 import { Sidebar } from 'components';
 import { LINKS } from 'lib/constants/links';
+import { notification } from 'antd';
 
 export const Header = () => {
   const { isOpen } = useUnit($sidebar);
@@ -60,6 +61,10 @@ export const Header = () => {
               handleLogout();
 
               navigate('/');
+
+              notification.success({
+                message: 'Вы успешно вышли из системы!',
+              });
             }}
           />
         </ActionsWrapper>

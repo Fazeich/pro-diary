@@ -22,6 +22,10 @@ export const Register = () => {
     })
       .then(() => {
         navigate('/');
+
+        notification.success({
+          message: 'Регистрация прошла успешно!',
+        });
       })
       .catch((req) => {
         const errorMessage = req?.response?.data?.message;

@@ -22,12 +22,16 @@ export const Auth = () => {
     })
       .then(() => {
         navigate('/diary');
+
+        notification.success({
+          message: 'Авторизация прошла успешно!',
+        });
       })
       .catch((req) => {
         const errorMessage = req?.response?.data?.message;
 
         notification.error({
-          message: errorMessage || 'Не удалось авторизоваться. \nПопробуйте попытку позже',
+          message: errorMessage || 'Не удалось авторизоваться.\nПопробуйте попытку позже',
         });
       });
   };
