@@ -1,5 +1,5 @@
 import { HOURS } from 'lib/constants/constants';
-import { getHours } from 'lib/utils/getHours';
+import { getHourDescription } from 'lib/utils/getHours';
 import React, { FC } from 'react';
 import { Select } from 'uikit/components';
 import { ISelectProps } from 'uikit/components/Select/Select';
@@ -16,7 +16,7 @@ export const DurationSelect: FC<IProps> = ({ duration = undefined, setDuration, 
       onChange={(value) => setDuration(value)}
       options={HOURS.map((item) => ({
         value: item,
-        label: `${item} ${getHours(item)}`,
+        label: `${item} ${getHourDescription(item)}`,
       }))}
       placement='topLeft'
       {...props}

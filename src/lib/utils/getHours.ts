@@ -1,4 +1,4 @@
-export const getHours = (duration?: number) => {
+export const getHourDescription = (duration?: number) => {
   switch (duration) {
     case 1:
     case 21:

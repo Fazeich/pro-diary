@@ -1,8 +1,16 @@
 import { combine, createEffect, createEvent, createStore } from 'effector';
-import { IAuthParams, IMainStore, IUser } from './types';
+import {
+  IAuthParams,
+  IChangeSettingsParams,
+  IChangeUserParams,
+  IGetSettingsParams,
+  IMainStore,
+  ISettings,
+  IUser,
+} from './types';
 import { $diary } from 'stores/diary/diary';
 import axios from 'axios';
-import { isEmpty } from 'lodash';
+import { create, isEmpty } from 'lodash';
 
 const isMobile =
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
@@ -21,6 +29,26 @@ export const $main = createStore<IMainStore>({
     },
   },
   isMobile,
+});
+
+export const changeUserFx = createEffect(async (params: IChangeUserParams) => {
+  const req = await axios.post('/api/user/change', params);
+
+  return req;
+});
+
+export const getSettingsFx = createEffect(async (params: IGetSettingsParams) => {
+  const req = await axios.get<ISettings>('/api/user/settings', {
+    params,
+  });
+
+  return req.data;
+});
+
+export const changeSettingsFx = createEffect(async (params: IChangeSettingsParams) => {
+  const req = await axios.post<ISettings>('/api/user/settings/change', params);
+
+  return req.data;
 });
 
 export const $efficiency = combine($main, $diary, (main, diary) => {
@@ -94,6 +122,24 @@ $main
       user: {
         ...state.user,
         ...user,
+      },
+    };
+  })
+  .on(getSettingsFx.done, (state, { result }) => {
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        settings: result,
+      },
+    };
+  })
+  .on(changeSettingsFx.done, (state, { result }) => {
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        settings: result,
       },
     };
   })

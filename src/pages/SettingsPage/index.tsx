@@ -1,12 +1,12 @@
 import { Header } from 'components';
 import React from 'react';
-import { Paragraph } from 'uikit/components';
+import { Settings } from 'components/Settings/Settings';
 
 export const SettingsPage = () => {
   return (
-    <div>
+    <>
       <Header />
-      <Paragraph text='Это страница настроек' />
-    </div>
+      <Settings />
+    </>
   );
 };

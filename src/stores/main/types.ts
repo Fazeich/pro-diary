@@ -19,3 +19,17 @@ export interface IAuthParams {
   login: string;
   password: string;
 }
+
+export interface IChangeUserParams {
+  userId: string;
+  userData: IUser;
+}
+
+export interface IGetSettingsParams {
+  userId: string;
+}
+
+export interface IChangeSettingsParams {
+  userId: string;
+  settingsData: Partial<ISettings>;
+}

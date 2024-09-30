@@ -1,5 +1,5 @@
 import { DurationSelect } from 'features';
-import { getHours } from 'lib/utils/getHours';
+import { getHourDescription } from 'lib/utils/getHours';
 import React, { FC } from 'react';
 import { changeDiaryFx } from 'stores/diary/diary';
 import { IDiary } from 'stores/diary/types';
@@ -73,7 +73,7 @@ export const DiaryDuration: FC<IProps> = ({ isChangingDuration, setIsChangingDur
   if (diary?.duration && !diary?.finished) {
     return (
       <Paragraph
-        text={`${isMobile ? '' : 'Длительность: '}${diary.duration} ${getHours(diary.duration)}`}
+        text={`${isMobile ? '' : 'Длительность: '}${diary.duration} ${getHourDescription(diary.duration)}`}
         style={{
           minWidth: '200px',
           maxWidth: '250px',

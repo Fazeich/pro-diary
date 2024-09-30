@@ -28,4 +28,16 @@ export const StyledSelect = styled(Select)<{
     font-size: ${({ fontSize }) => `${fontSize}px`};
     color: ${({ theme }) => theme.secondary.text} !important;
   }
+
+  .ant-select-arrow {
+    svg {
+      fill: ${({ theme }) => theme.primary.text};
+    }
+  }
+
+  &.ant-select-disabled {
+    .ant-select-selection-item {
+      color: ${({ theme }) => theme.secondary.text} !important;
+    }
+  }
 `;
