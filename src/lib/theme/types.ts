@@ -12,5 +12,6 @@ export interface IThemeItem {
   background: string;
   shadow?: string;
   icon?: string;
-  link?: string;  
+  link?: string;
+  hover?: string;
 }

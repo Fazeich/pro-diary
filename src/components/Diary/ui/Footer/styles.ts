@@ -4,7 +4,9 @@ import styled from 'styled-components';
 export const StyledFooter = styled.div<{ isMobile: boolean }>`
   background-color: ${({ theme }) => theme.primary.background};
 
-  box-shadow: ${({ theme }) => theme.primary.shadow};
+  box-shadow: ${({ theme }) => `-2px 0 10px 0 ${theme.primary.shadow}`};
+
+  border: ${({ theme }) => `1px solid ${theme.primary.border}`};
 
   min-height: ${FOOTER_HEIGHT}px;
   max-height: ${FOOTER_HEIGHT}px;

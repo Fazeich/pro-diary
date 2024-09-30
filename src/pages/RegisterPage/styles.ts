@@ -10,3 +10,9 @@ export const RegisterPageWrapper = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+export const ThemeChangerWrapper = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`;

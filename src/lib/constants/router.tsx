@@ -1,4 +1,12 @@
-import { DiaryPage, WelcomePage, AuthPage, RegisterPage, ArchivePage } from 'pages';
+import {
+  DiaryPage,
+  WelcomePage,
+  AuthPage,
+  RegisterPage,
+  ArchivePage,
+  ProfilePage,
+  SettingsPage,
+} from 'pages';
 import { createBrowserRouter } from 'react-router-dom';
 
 export const router = createBrowserRouter([
@@ -21,5 +29,13 @@ export const router = createBrowserRouter([
   {
     path: '/archive',
     element: <ArchivePage />,
+  },
+  {
+    path: '/profile',
+    element: <ProfilePage />,
+  },
+  {
+    path: '/settings',
+    element: <SettingsPage />,
   },
 ]);

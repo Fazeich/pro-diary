@@ -6,7 +6,9 @@ import { Paragraph } from 'uikit/components';
 export const StyledHeader = styled.div<{ isMobile: boolean }>`
   background-color: ${({ theme }) => theme.primary.background};
 
-  box-shadow: ${({ theme }) => theme.primary.shadow};
+  box-shadow: ${({ theme }) => `2px 0 10px 0 ${theme.primary.shadow}`};
+
+  border: ${({ theme }) => `1px solid ${theme.primary.border}`};
 
   display: flex;
   align-items: center;

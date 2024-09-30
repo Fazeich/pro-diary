@@ -3,8 +3,6 @@ import styled from 'styled-components';
 export const DiaryWrapper = styled.div`
   height: 100%;
 
-  padding: 0 20px;
-
   overflow-y: auto;
 
   scrollbar-width: thin;
@@ -13,24 +11,41 @@ export const DiaryWrapper = styled.div`
 export const DiaryItemWrapper = styled.div<{ isMobile: boolean }>`
   position: relative;
 
-  height: 65px;
+  transition: all 0.15s ease-in-out;
 
-  ${({ isMobile }) =>
-    isMobile
-      ? `
+  min-height: 65px;
+
+  padding: 20px;
+
+  ${({ isMobile }) => {
+    if (isMobile) {
+      return `
         display: flex;
         flex-direction: column;
-
-        align-items: center;
-
+        align-items: flext-start;
         justify-content: center;
 
-        `
-      : `
-        display: grid;
-        grid-template-columns: 1fr 300px 300px;
-        align-items: center;
-      `}
+        text-align: left;
+
+        gap: 20px;
+      `;
+    }
+
+    return `
+      display: grid;
+
+      grid-template-columns: 6fr 1fr 1fr;
+      align-items: center;
+
+      grid-gap: 20px;
+    `;
+  }}
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.primary.hover};
+  }
 `;
 
 export const FlexUnwrap = styled.div`
@@ -50,4 +65,21 @@ export const NoDiaryWrapper = styled.div`
 
   align-items: center;
   justify-content: center;
+`;
+
+export const ActionsWrapper = styled.div<{ isMobile: boolean }>`
+  ${({ isMobile }) => {
+    if (isMobile) {
+      return `
+        display: flex;
+        `;
+    }
+
+    return `
+      display: flex;
+      gap: 20px;
+
+      align-items: center;
+    `;
+  }}
 `;

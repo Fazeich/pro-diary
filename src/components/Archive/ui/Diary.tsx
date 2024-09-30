@@ -3,7 +3,7 @@ import React from 'react';
 import { IDiary } from 'stores/diary/types';
 import { DiaryItemWrapper } from '../styles';
 import { Paragraph } from 'uikit/components';
-import { Dropdown } from 'antd';
+import { Dropdown, notification } from 'antd';
 import { unarchiveDiaryFx } from 'stores/diary/diary';
 
 export const Diary = (diary: IDiary) => {
@@ -13,7 +13,15 @@ export const Diary = (diary: IDiary) => {
         <Paragraph
           text='Вернуть из архива'
           noColor
-          onClick={() => unarchiveDiaryFx({ diaryId: diary?._id })}
+          onClick={() =>
+            unarchiveDiaryFx({ diaryId: diary?._id }).catch((req) => {
+              const errorMessage = req?.response?.data?.message;
+
+              notification.error({
+                message: errorMessage || 'Не удалось вернуть задачу из архива',
+              });
+            })
+          }
         />
       ),
       key: 'unarchive',

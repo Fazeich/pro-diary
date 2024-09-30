@@ -38,17 +38,6 @@ export const getDiariesFx = createEffect(async (params: IGetDiaryParams) => {
   }
 });
 
-// export const getArchivedDiariesFx = createEffect(async (params: IGetArchivedDiaryParams) => {
-//   // Возвращает все архивные задачи. Можно передать фильтр finished
-//   const req = await axios.get<IDiary[]>('/api/diaries/archive', {
-//     params,
-//   });
-
-//   if (req?.data) {
-//     return req.data;
-//   }
-// });
-
 export const getArchivedFinishedDiariesFx = createEffect(
   async (params: IGetArchivedDiaryParams) => {
     // Возвращает все архивные задачи. Можно передать фильтр finished

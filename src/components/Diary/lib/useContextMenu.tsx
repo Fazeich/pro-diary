@@ -1,3 +1,4 @@
+import { notification } from 'antd';
 import { useUnit } from 'effector-react';
 import { cloneDeep } from 'lodash';
 import {
@@ -30,6 +31,12 @@ export const useContextMenu = ({ diary }) => {
               createDiaryFx({
                 diary: { ...newDiary, title: `${newDiary.title}*` },
                 userId: user.id,
+              }).catch((req) => {
+                const errorMessage = req?.response?.data?.message;
+
+                notification.error({
+                  message: errorMessage || 'Не удалось создать задачу',
+                });
               });
             }
           }}
@@ -45,9 +52,21 @@ export const useContextMenu = ({ diary }) => {
           noColor
           onClick={() => {
             if (diary?.finished) {
-              returnDiaryFx({ diaryId: diary?._id });
+              returnDiaryFx({ diaryId: diary?._id }).catch((req) => {
+                const errorMessage = req?.response?.data?.message;
+
+                notification.error({
+                  message: errorMessage || 'Не удалось вернуть задачу',
+                });
+              });
             } else {
-              finishDiaryFx({ diaryId: diary._id });
+              finishDiaryFx({ diaryId: diary._id }).catch((req) => {
+                const errorMessage = req?.response?.data?.message;
+
+                notification.error({
+                  message: errorMessage || 'Не удалось завершить задачу',
+                });
+              });
             }
           }}
         />
@@ -60,7 +79,13 @@ export const useContextMenu = ({ diary }) => {
           text='Архивировать'
           noColor
           onClick={() => {
-            archiveDiaryFx({ diaryId: diary?._id });
+            archiveDiaryFx({ diaryId: diary?._id }).catch((req) => {
+              const errorMessage = req?.response?.data?.message;
+
+              notification.error({
+                message: errorMessage || 'Не удалось архивировать задачу',
+              });
+            });
           }}
         />
       ),
@@ -72,7 +97,13 @@ export const useContextMenu = ({ diary }) => {
           text='Удалить'
           noColor
           onClick={() => {
-            deleteDiaryFx({ diaryId: diary._id });
+            deleteDiaryFx({ diaryId: diary._id }).catch((req) => {
+              const errorMessage = req?.response?.data?.message;
+
+              notification.error({
+                message: errorMessage || 'Не удалось удалть задачу',
+              });
+            });
           }}
         />
       ),
