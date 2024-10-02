@@ -8,6 +8,7 @@ export interface IUser {
 export interface ISettings {
   isUsingEfficiency: boolean;
   efficiency: number;
+  isShowWelcome: boolean;
 }
 
 export interface IMainStore {

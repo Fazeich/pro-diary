@@ -4,7 +4,7 @@ import { Input, Paragraph } from 'uikit/components';
 import { Button, notification } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useUnit } from 'effector-react';
-import { authFx } from 'stores/main/main';
+import { $main, authFx } from 'stores/main/main';
 
 export const Auth = () => {
   const navigate = useNavigate();
@@ -12,6 +12,7 @@ export const Auth = () => {
   const [form] = StyledForm.useForm();
 
   const isLogging = useUnit(authFx.pending);
+  const { isMobile } = useUnit($main);
 
   const handleAuth = async () => {
     const { login = '', password = '' } = form.getFieldsValue();
@@ -22,18 +23,22 @@ export const Auth = () => {
     })
       .then(() => {
         navigate('/diary');
+
+        notification.success({
+          message: 'Авторизация прошла успешно!',
+        });
       })
       .catch((req) => {
         const errorMessage = req?.response?.data?.message;
 
         notification.error({
-          message: errorMessage || 'Не удалось авторизоваться. \nПопробуйте попытку позже',
+          message: errorMessage || 'Не удалось авторизоваться.\nПопробуйте попытку позже',
         });
       });
   };
 
   return (
-    <AuthWrapper>
+    <AuthWrapper isMobile={isMobile}>
       <Paragraph text='Авторизация' size={48} />
 
       <StyledForm

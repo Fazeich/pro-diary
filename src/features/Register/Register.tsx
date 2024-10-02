@@ -4,12 +4,13 @@ import { Input, Paragraph } from 'uikit/components';
 import { Button, notification } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useUnit } from 'effector-react';
-import { registerFx } from 'stores/main/main';
+import { $main, registerFx } from 'stores/main/main';
 
 export const Register = () => {
   const navigate = useNavigate();
 
   const isRegistering = useUnit(registerFx.pending);
+  const { isMobile } = useUnit($main);
 
   const [form] = StyledForm.useForm();
 
@@ -22,6 +23,10 @@ export const Register = () => {
     })
       .then(() => {
         navigate('/');
+
+        notification.success({
+          message: 'Регистрация прошла успешно!',
+        });
       })
       .catch((req) => {
         const errorMessage = req?.response?.data?.message;
@@ -33,7 +38,7 @@ export const Register = () => {
   };
 
   return (
-    <RegisterWrapper>
+    <RegisterWrapper isMobile={isMobile}>
       <Paragraph text='Регистрация' size={48} />
 
       <StyledForm form={form} name='register_form' onFinish={handleRegister}>

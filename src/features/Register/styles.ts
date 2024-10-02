@@ -1,9 +1,20 @@
 import { Form } from 'antd';
 import styled from 'styled-components';
 
-export const RegisterWrapper = styled.div`
-  width: 750px;
-  height: fit-content;
+export const RegisterWrapper = styled.div<{ isMobile: boolean }>`
+  ${({ isMobile }) => {
+    if (isMobile) {
+      return `
+        width: 100%;
+        height: 100%;
+      `;
+    }
+
+    return `
+      width: 750px;
+      height: fit-content;
+    `;
+  }};
 
   display: flex;
   flex-direction: column;

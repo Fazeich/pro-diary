@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { SettingsBlock, FlexWrapper } from '../lib/styles';
 import { Paragraph, Select } from 'uikit/components';
 import { Divider } from 'features';
-import { Button, Switch } from 'antd';
+import { Button, notification, Switch } from 'antd';
 import { useUnit } from 'effector-react';
 import { $main, changeSettingsFx } from 'stores/main/main';
 import { HOURS } from 'lib/constants/constants';
@@ -16,13 +16,23 @@ export const UserSettings = () => {
 
   const { efficiency = null, isUsingEfficiency = false } = settings;
 
-  const isChangedSettings = useUnit(changeSettingsFx.pending);
+  const isChangingSettings = useUnit(changeSettingsFx.pending);
 
   const handleApplySettings = async () => {
     await changeSettingsFx({
       userId: user.id,
       settingsData: settings,
-    });
+    })
+      .then(() => {
+        notification.success({
+          message: 'Настройки успешно изменены!',
+        });
+      })
+      .catch(() => {
+        notification.error({
+          message: 'Не удалось изменить настройки.\nПопробуйте позже',
+        });
+      });
   };
 
   useEffect(() => {
@@ -39,17 +49,17 @@ export const UserSettings = () => {
         <Paragraph text='Эффективность' />
         <Switch
           value={isUsingEfficiency}
-          disabled={isChangedSettings}
+          disabled={isChangingSettings}
           onChange={(value) => setSettings((prev) => ({ ...prev, isUsingEfficiency: value }))}
         />
       </FlexWrapper>
 
       <FlexWrapper>
-        <Paragraph text='Текущая эффективность' />
+        <Paragraph text='Время для задач' />
         <Select
           value={efficiency}
           onChange={(value) => setSettings((prev) => ({ ...prev, efficiency: value }))}
-          disabled={isChangedSettings || !isUsingEfficiency}
+          disabled={isChangingSettings || !isUsingEfficiency}
           width={125}
           options={HOURS.map((hour) => ({
             value: hour,
@@ -62,7 +72,7 @@ export const UserSettings = () => {
         type='primary'
         style={{ width: 'fit-content' }}
         size='large'
-        loading={isChangedSettings}
+        loading={isChangingSettings}
         onClick={handleApplySettings}
       >
         Сохранить

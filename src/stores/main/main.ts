@@ -10,7 +10,7 @@ import {
 } from './types';
 import { $diary } from 'stores/diary/diary';
 import axios from 'axios';
-import { create, isEmpty } from 'lodash';
+import { isEmpty } from 'lodash';
 
 const isMobile =
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
@@ -26,6 +26,7 @@ export const $main = createStore<IMainStore>({
     settings: {
       isUsingEfficiency: true,
       efficiency: 6,
+      isShowWelcome: false,
     },
   },
   isMobile,
