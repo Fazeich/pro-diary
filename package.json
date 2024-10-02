@@ -59,5 +59,6 @@
     "*.{json,js,jsx,tsx,html}": [
       "prettier --write --ignore-unknown"
     ]
-  }
+  },
+  "proxy": "http://176.114.71.4:3010"
 }
