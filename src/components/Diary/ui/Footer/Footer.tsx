@@ -76,7 +76,7 @@ export const Footer = () => {
         <Paragraph
           text={getEfficincyDescription()}
           theme='accent'
-          className='min-w-175 max-w-250 w-full'
+          className='min-w-[175px] max-w-[250px] w-full'
         />
       )}
 

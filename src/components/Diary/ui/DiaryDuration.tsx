@@ -68,7 +68,7 @@ export const DiaryDuration: FC<IProps> = ({ isChangingDuration, setIsChangingDur
     return (
       <Paragraph
         text={`${isMobile ? '' : 'Длительность: '}${diary.duration} ${getHourDescription(diary.duration)}`}
-        className='min-w-200 max-w-250 select-none'
+        className='min-w-[200px] max-w-[250px] select-none'
       />
     );
   }

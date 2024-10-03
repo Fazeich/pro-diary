@@ -77,7 +77,7 @@ export const DiaryImportance: FC<IProps> = ({
     return (
       <Paragraph
         text={`${isMobile ? '' : 'Важность: '}${importanceLabel}`}
-        className='min-w-200 max-w-250 select-none'
+        className='min-w-[200px] max-w-[250px] select-none'
       />
     );
   }
