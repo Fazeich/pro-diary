@@ -38,6 +38,7 @@ export const DiaryDuration: FC<IProps> = ({ isChangingDuration, setIsChangingDur
           duration={diary.duration}
           setDuration={handleChangeDuration}
           onBlur={() => setIsChangingDuration(false)}
+          onClick={(e) => e.stopPropagation()}
           defaultOpen
           width={150}
           getDisabledOption={(option) => {

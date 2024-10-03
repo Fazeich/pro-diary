@@ -9,6 +9,7 @@ export interface ISettings {
   isUsingEfficiency: boolean;
   efficiency: number;
   isShowWelcome: boolean;
+  isShowLearn: boolean;
 }
 
 export interface IMainStore {

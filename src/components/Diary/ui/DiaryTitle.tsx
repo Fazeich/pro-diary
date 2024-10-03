@@ -39,6 +39,7 @@ export const DiaryTitle: FC<IProps> = ({ isChangingTitle, setIsChangingTitle, di
           onChange={({ target: { value } }) => setTitle(value)}
           onPressEnter={handleChangeTitle}
           onBlur={handleChangeTitle}
+          onClick={(e) => e.stopPropagation()}
           autoSize
         />
       );
