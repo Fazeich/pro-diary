@@ -4,8 +4,7 @@ import React, { FC, useState } from 'react';
 import { changeDiaryFx } from 'stores/diary/diary';
 import { IDiary } from 'stores/diary/types';
 import { $main } from 'stores/main/main';
-import { Input, Paragraph } from 'uikit/components';
-import { CheckIcon } from 'uikit/icons';
+import { Input, Paragraph, TextArea } from 'uikit/components';
 
 interface IProps {
   isChangingTitle: boolean;
@@ -14,6 +13,7 @@ interface IProps {
 }
 
 export const DiaryTitle: FC<IProps> = ({ isChangingTitle, setIsChangingTitle, diary }) => {
+  const { isMobile } = useUnit($main);
   const [title, setTitle] = useState<string>(diary?.title || '');
 
   const handleChangeTitle = () => {
@@ -32,13 +32,24 @@ export const DiaryTitle: FC<IProps> = ({ isChangingTitle, setIsChangingTitle, di
   };
 
   if (isChangingTitle) {
+    if (isMobile) {
+      return (
+        <TextArea
+          value={title}
+          onChange={({ target: { value } }) => setTitle(value)}
+          onPressEnter={handleChangeTitle}
+          onBlur={handleChangeTitle}
+          autoSize
+        />
+      );
+    }
+
     return (
       <Input
         value={title}
         onChange={({ target: { value } }) => setTitle(value)}
         onPressEnter={handleChangeTitle}
-        suffix={<CheckIcon cursor='pointer' onClick={handleChangeTitle} />}
-        width={'80%'}
+        onBlur={handleChangeTitle}
       />
     );
   }
@@ -46,10 +57,7 @@ export const DiaryTitle: FC<IProps> = ({ isChangingTitle, setIsChangingTitle, di
   return (
     <Paragraph
       text={diary?.title || '*Пустая цель*'}
-      style={{
-        wordBreak: 'break-word',
-        textDecoration: diary?.finished ? 'line-through' : 'none',
-      }}
+      className={`break-words ${diary?.finished ? 'line-through' : ''} select-none`}
     />
   );
 };

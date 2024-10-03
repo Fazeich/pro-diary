@@ -11,4 +11,10 @@ export const StyledTextArea = styled(TextArea)`
   border-bottom-width: 2px !important;
 
   box-shadow: none !important;
+
+  color: ${({ theme }) => theme.primary.text} !important;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.secondary.text} !important;
+  }
 `;

@@ -1,9 +1,11 @@
+export type ImportanceTypes = 'important' | 'not_important' | null;
+
 export interface IDiary {
   _id?: string;
   title?: string;
   duration?: number;
   finished?: boolean;
-  importance?: 'important' | 'not_important' | null;
+  importance?: ImportanceTypes;
 }
 
 export interface IDiaryStore {
@@ -33,6 +35,6 @@ export interface ICreateDiaryParams {
   diary?: {
     title?: string;
     duration?: number;
-    importance?: 'important' | 'not_important' | null;
+    importance?: ImportanceTypes;
   };
 }

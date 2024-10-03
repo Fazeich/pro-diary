@@ -1,7 +1,7 @@
 import { IMPORTANCE_OPTIONS } from 'lib/constants/constants';
 import React, { FC, useMemo } from 'react';
 import { changeDiaryFx } from 'stores/diary/diary';
-import { IDiary } from 'stores/diary/types';
+import { IDiary, ImportanceTypes } from 'stores/diary/types';
 import { Paragraph, Select } from 'uikit/components';
 import { FlexUnwrap } from '../styles';
 import { notification } from 'antd';
@@ -32,22 +32,25 @@ export const DiaryImportance: FC<IProps> = ({
     }
   }, [diary.importance]);
 
+  const handleChangeImportance = (value: ImportanceTypes) => {
+    changeDiaryFx({ _id: diary._id, importance: value }).catch((req) => {
+      const errorMessage = req?.response?.data?.message;
+
+      notification.error({
+        message: errorMessage || 'Не удалось изменить важность',
+      });
+    });
+
+    setIsChangingImportance(false);
+  };
+
   if (isChangingImportance) {
     if (isMobile) {
       return (
         <Select
           value={diary?.importance || null}
-          onChange={(value) => {
-            changeDiaryFx({ _id: diary._id, importance: value }).catch((req) => {
-              const errorMessage = req?.response?.data?.message;
-
-              notification.error({
-                message: errorMessage || 'Не удалось изменить важность',
-              });
-            });
-
-            setIsChangingImportance(false);
-          }}
+          onChange={handleChangeImportance}
+          onBlur={() => setIsChangingImportance(false)}
           defaultOpen
           options={IMPORTANCE_OPTIONS}
           width={150}
@@ -60,17 +63,8 @@ export const DiaryImportance: FC<IProps> = ({
         <Paragraph onClick={() => setIsChangingImportance(true)} text='Важность: ' />
         <Select
           value={diary?.importance || null}
-          onChange={(value) => {
-            changeDiaryFx({ _id: diary._id, importance: value }).catch((req) => {
-              const errorMessage = req?.response?.data?.message;
-
-              notification.error({
-                message: errorMessage || 'Не удалось изменить важность',
-              });
-            });
-
-            setIsChangingImportance(false);
-          }}
+          onChange={handleChangeImportance}
+          onBlur={() => setIsChangingImportance(false)}
           defaultOpen
           options={IMPORTANCE_OPTIONS}
           width={150}
@@ -83,10 +77,7 @@ export const DiaryImportance: FC<IProps> = ({
     return (
       <Paragraph
         text={`${isMobile ? '' : 'Важность: '}${importanceLabel}`}
-        style={{
-          minWidth: '200px',
-          maxWidth: '250px',
-        }}
+        className='min-w-200 max-w-250 select-none'
       />
     );
   }

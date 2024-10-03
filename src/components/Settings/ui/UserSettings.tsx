@@ -70,10 +70,10 @@ export const UserSettings = () => {
 
       <Button
         type='primary'
-        style={{ width: 'fit-content' }}
         size='large'
         loading={isChangingSettings}
         onClick={handleApplySettings}
+        className='w-fit'
       >
         Сохранить
       </Button>

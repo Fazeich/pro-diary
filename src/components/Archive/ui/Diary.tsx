@@ -42,7 +42,7 @@ export const Diary = (diary: IDiary) => {
   return (
     <Dropdown key={uniqueId()} menu={{ items: context }} trigger={['contextMenu']}>
       <DiaryItemWrapper>
-        <Paragraph text={diary?.title} />
+        <Paragraph text={diary?.title} className='select-none' />
       </DiaryItemWrapper>
     </Dropdown>
   );
