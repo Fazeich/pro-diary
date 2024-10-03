@@ -19,22 +19,25 @@ export const DiaryDuration: FC<IProps> = ({ isChangingDuration, setIsChangingDur
   const { timeLost } = useUnit($efficiency);
   const { isMobile } = useUnit($main);
 
+  const handleChangeDuration = (value: number) => {
+    changeDiaryFx({ _id: diary._id, duration: value }).catch((req) => {
+      const errorMessage = req?.response?.data?.message;
+
+      notification.error({
+        message: errorMessage || 'Не удалось изменить длительность',
+      });
+    });
+
+    setIsChangingDuration(false);
+  };
+
   if (isChangingDuration) {
     if (isMobile) {
       return (
         <DurationSelect
           duration={diary.duration}
-          setDuration={(value) => {
-            changeDiaryFx({ _id: diary._id, duration: value }).catch((req) => {
-              const errorMessage = req?.response?.data?.message;
-
-              notification.error({
-                message: errorMessage || 'Не удалось изменить длительность',
-              });
-            });
-
-            setIsChangingDuration(false);
-          }}
+          setDuration={handleChangeDuration}
+          onBlur={() => setIsChangingDuration(false)}
           defaultOpen
           width={150}
           getDisabledOption={(option) => {
@@ -49,17 +52,8 @@ export const DiaryDuration: FC<IProps> = ({ isChangingDuration, setIsChangingDur
         <Paragraph onClick={() => setIsChangingDuration(true)} text='Длительность: ' />
         <DurationSelect
           duration={diary.duration}
-          setDuration={(value) => {
-            changeDiaryFx({ _id: diary._id, duration: value }).catch((req) => {
-              const errorMessage = req?.response?.data?.message;
-
-              notification.error({
-                message: errorMessage || 'Не удалось изменить длительность',
-              });
-            });
-
-            setIsChangingDuration(false);
-          }}
+          setDuration={handleChangeDuration}
+          onBlur={() => setIsChangingDuration(false)}
           defaultOpen
           width={150}
           getDisabledOption={(option) => {
@@ -74,10 +68,7 @@ export const DiaryDuration: FC<IProps> = ({ isChangingDuration, setIsChangingDur
     return (
       <Paragraph
         text={`${isMobile ? '' : 'Длительность: '}${diary.duration} ${getHourDescription(diary.duration)}`}
-        style={{
-          minWidth: '200px',
-          maxWidth: '250px',
-        }}
+        className='min-w-[200px] max-w-[250px] select-none'
       />
     );
   }

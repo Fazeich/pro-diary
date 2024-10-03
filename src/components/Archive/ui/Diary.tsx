@@ -5,8 +5,12 @@ import { DiaryItemWrapper } from '../styles';
 import { Paragraph } from 'uikit/components';
 import { Dropdown, notification } from 'antd';
 import { unarchiveDiaryFx } from 'stores/diary/diary';
+import { useUnit } from 'effector-react';
+import { $main } from 'stores/main/main';
 
 export const Diary = (diary: IDiary) => {
+  const { isMobile } = useUnit($main);
+
   const context = [
     {
       label: (
@@ -40,9 +44,13 @@ export const Diary = (diary: IDiary) => {
   ];
 
   return (
-    <Dropdown key={uniqueId()} menu={{ items: context }} trigger={['contextMenu']}>
+    <Dropdown
+      key={uniqueId()}
+      menu={{ items: context }}
+      trigger={isMobile ? ['click'] : ['contextMenu']}
+    >
       <DiaryItemWrapper>
-        <Paragraph text={diary?.title} />
+        <Paragraph text={diary?.title} className='select-none' />
       </DiaryItemWrapper>
     </Dropdown>
   );

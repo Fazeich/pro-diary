@@ -1,13 +1,23 @@
 import styled from 'styled-components';
 
-export const SettingsWrapper = styled.div`
+export const SettingsWrapper = styled.div<{ isMobile: boolean }>`
   padding: 20px;
 
   display: grid;
 
-  grid-template-columns: 1fr 1fr;
+  ${({ isMobile }) => {
+    if (isMobile) {
+      return `
+        grid-template-rows: 1fr 1fr;
+      `;
+    }
 
-  gap: 20px;
+    return `
+      grid-template-columns: 1fr 1fr;
+    `;
+  }}
+
+  gap: ${({ isMobile }) => (isMobile ? '40px' : '20px')};
 `;
 
 export const SettingsBlock = styled.div`

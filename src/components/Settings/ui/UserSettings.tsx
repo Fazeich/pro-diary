@@ -41,12 +41,12 @@ export const UserSettings = () => {
 
   return (
     <SettingsBlock>
-      <Paragraph text='Пользовательские настройки' />
+      <Paragraph text='Пользовательские настройки' size={22} />
 
       <Divider />
 
       <FlexWrapper>
-        <Paragraph text='Эффективность' />
+        <Paragraph text='Эффективность' theme='accent' />
         <Switch
           value={isUsingEfficiency}
           disabled={isChangingSettings}
@@ -55,7 +55,7 @@ export const UserSettings = () => {
       </FlexWrapper>
 
       <FlexWrapper>
-        <Paragraph text='Время для задач' />
+        <Paragraph text='Время для задач' theme='accent' />
         <Select
           value={efficiency}
           onChange={(value) => setSettings((prev) => ({ ...prev, efficiency: value }))}
@@ -70,10 +70,10 @@ export const UserSettings = () => {
 
       <Button
         type='primary'
-        style={{ width: 'fit-content' }}
         size='large'
         loading={isChangingSettings}
         onClick={handleApplySettings}
+        className='w-fit'
       >
         Сохранить
       </Button>

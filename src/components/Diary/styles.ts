@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Paragraph } from 'uikit/components';
 
 export const DiaryWrapper = styled.div`
   height: 100%;
@@ -6,6 +7,8 @@ export const DiaryWrapper = styled.div`
   overflow-y: auto;
 
   scrollbar-width: thin;
+
+  position: relative;
 `;
 
 export const DiaryItemWrapper = styled.div<{ isMobile: boolean }>`

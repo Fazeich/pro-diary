@@ -6,7 +6,7 @@ export const Start = () => {
     <div>
       <Paragraph
         text='Хотите ли вы настроить всё необходимое перед запуском?'
-        style={{ textAlign: 'center' }}
+        className='text-center'
       />
     </div>
   );

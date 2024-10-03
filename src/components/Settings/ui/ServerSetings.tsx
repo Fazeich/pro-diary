@@ -6,9 +6,11 @@ import { Divider } from 'features';
 export const ServerSetings = () => {
   return (
     <SettingsBlock>
-      <Paragraph text='В разработке' />
+      <Paragraph text='Серверные настройки' size={22} />
 
       <Divider />
+
+      <Paragraph text='В разработке' theme='accent' />
     </SettingsBlock>
   );
 };

@@ -48,7 +48,10 @@ export const DiaryItem = (diary: IDiary) => {
 
   return (
     <>
-      <Dropdown trigger={['contextMenu']} menu={{ items: [...context, ...additionalContext] }}>
+      <Dropdown
+        trigger={isMobile ? ['click'] : ['contextMenu']}
+        menu={{ items: [...context, ...additionalContext] }}
+      >
         <DiaryItemWrapper isMobile={isMobile}>
           <DiaryTitle
             diary={diary}

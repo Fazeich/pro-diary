@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { StyledAppLayout } from './styles';
 import { $main, getMeFx } from 'stores/main/main';
 import { $theme } from 'stores/theme/theme';
+import './index.css';
 
 interface IProps {
   children: any;
