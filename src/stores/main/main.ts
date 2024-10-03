@@ -80,7 +80,7 @@ export const authFx = createEffect(async (params: IAuthParams) => {
 });
 
 export const getMeFx = createEffect(async () => {
-  const token = sessionStorage.getItem('token');
+  const token = localStorage.getItem('token');
 
   if (token) {
     const req = await axios.post<{ user: IUser }>('/api/me', {
@@ -117,7 +117,7 @@ $main
       data: { token = '', user },
     } = result;
 
-    sessionStorage.setItem('token', token);
+    localStorage.setItem('token', token);
 
     return {
       ...state,
