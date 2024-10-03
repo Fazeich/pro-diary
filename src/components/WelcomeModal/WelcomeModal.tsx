@@ -12,7 +12,7 @@ import { ISettings } from 'stores/main/types';
 export const WelcomeModal = () => {
   const {
     user: {
-      settings: { isShowWelcome },
+      settings: { isShowWelcome, isShowLearn },
     },
   } = useUnit($main);
   const { user } = useUnit($main);
@@ -104,10 +104,10 @@ export const WelcomeModal = () => {
   }, [user.settings]);
 
   useEffect(() => {
-    if (isShowWelcome) {
+    if (isShowWelcome && !isShowLearn) {
       setOpen(true);
     }
-  }, [isShowWelcome]);
+  }, [isShowWelcome, isShowLearn]);
 
   return (
     <Modal

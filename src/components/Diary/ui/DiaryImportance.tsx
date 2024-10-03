@@ -54,6 +54,7 @@ export const DiaryImportance: FC<IProps> = ({
           defaultOpen
           options={IMPORTANCE_OPTIONS}
           width={150}
+          onClick={(e) => e.stopPropagation()}
         />
       );
     }

@@ -1,5 +1,6 @@
 import { Diary, Footer, Header } from 'components';
 import { WelcomeModal } from 'components';
+import { LearnModal } from 'components/LearnModal/LearnModal';
 import { DiaryLayout } from 'layouts';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -22,6 +23,7 @@ export const DiaryPage = () => {
       <Header />
 
       <WelcomeModal />
+      <LearnModal />
 
       <Diary />
 

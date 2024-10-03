@@ -27,6 +27,7 @@ export const $main = createStore<IMainStore>({
       isUsingEfficiency: true,
       efficiency: 6,
       isShowWelcome: false,
+      isShowLearn: false,
     },
   },
   isMobile,
