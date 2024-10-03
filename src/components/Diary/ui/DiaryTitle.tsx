@@ -37,20 +37,21 @@ export const DiaryTitle: FC<IProps> = ({ isChangingTitle, setIsChangingTitle, di
         <TextArea
           value={title}
           onChange={({ target: { value } }) => setTitle(value)}
-          onPressEnter={handleChangeTitle}
           onBlur={handleChangeTitle}
           onClick={(e) => e.stopPropagation()}
+          autoFocus
           autoSize
         />
       );
     }
 
     return (
-      <Input
+      <TextArea
         value={title}
         onChange={({ target: { value } }) => setTitle(value)}
-        onPressEnter={handleChangeTitle}
         onBlur={handleChangeTitle}
+        autoFocus
+        autoSize
       />
     );
   }
@@ -58,7 +59,7 @@ export const DiaryTitle: FC<IProps> = ({ isChangingTitle, setIsChangingTitle, di
   return (
     <Paragraph
       text={diary?.title || '*Пустая цель*'}
-      className={`break-words ${diary?.finished ? 'line-through' : ''} select-none`}
+      className={`${diary?.finished ? 'line-through' : ''} select-none whitespace-pre-wrap`}
     />
   );
 };

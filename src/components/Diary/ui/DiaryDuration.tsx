@@ -44,6 +44,7 @@ export const DiaryDuration: FC<IProps> = ({ isChangingDuration, setIsChangingDur
           getDisabledOption={(option) => {
             return Number(option.value) > timeLost;
           }}
+          autoFocus
         />
       );
     }
@@ -60,6 +61,7 @@ export const DiaryDuration: FC<IProps> = ({ isChangingDuration, setIsChangingDur
           getDisabledOption={(option) => {
             return Number(option.value) > timeLost;
           }}
+          autoFocus
         />
       </FlexUnwrap>
     );

@@ -50,7 +50,7 @@ export const Diary = (diary: IDiary) => {
       trigger={isMobile ? ['click'] : ['contextMenu']}
     >
       <DiaryItemWrapper>
-        <Paragraph text={diary?.title} className='select-none' />
+        <Paragraph text={diary?.title} className='select-none whitespace-pre-wrap' />
       </DiaryItemWrapper>
     </Dropdown>
   );

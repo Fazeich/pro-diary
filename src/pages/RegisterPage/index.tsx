@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 export const RegisterPage = () => {
   const navigate = useNavigate();
 
-  const token = sessionStorage.getItem('token');
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     if (token) {
