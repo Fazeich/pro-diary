@@ -31,6 +31,11 @@
     "lint": "eslint --quiet --fix",
     "prettier": "prettier --write --ignore-unknown"
   },
+  "eslintConfig": {
+    "rules": {
+      "no-return-assign": "error"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -44,7 +49,6 @@
     ]
   },
   "devDependencies": {
-    "@eslint/js": "^9.11.0",
     "@types/lodash": "^4.17.7",
     "antd": "^5.20.6",
     "eslint": "^9.11.0",
