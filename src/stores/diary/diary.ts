@@ -71,7 +71,7 @@ export const getArchivedUnfinishedDiariesFx = createEffect(
 );
 
 export const createDiaryFx = createEffect(async (params: ICreateDiaryParams) => {
-  const req = await axios.post<IDiary[]>('/api/diaries/create', params);
+  const req = await axios.post<{ diary: IDiary }>('/api/diaries/create', params);
 
   if (req?.data) {
     return req.data;

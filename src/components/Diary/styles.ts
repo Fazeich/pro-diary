@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Paragraph } from 'uikit/components';
 
 export const DiaryWrapper = styled.div`
   height: 100%;

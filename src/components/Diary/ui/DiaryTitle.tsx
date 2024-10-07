@@ -4,7 +4,7 @@ import React, { FC, useState } from 'react';
 import { changeDiaryFx } from 'stores/diary/diary';
 import { IDiary } from 'stores/diary/types';
 import { $main } from 'stores/main/main';
-import { Input, Paragraph, TextArea } from 'uikit/components';
+import { Paragraph, TextArea } from 'uikit/components';
 
 interface IProps {
   isChangingTitle: boolean;
@@ -49,6 +49,7 @@ export const DiaryTitle: FC<IProps> = ({ isChangingTitle, setIsChangingTitle, di
       <TextArea
         value={title}
         onChange={({ target: { value } }) => setTitle(value)}
+        onPressEnter={handleChangeTitle}
         onBlur={handleChangeTitle}
         autoFocus
         autoSize

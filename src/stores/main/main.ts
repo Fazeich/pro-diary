@@ -1,12 +1,15 @@
 import { combine, createEffect, createEvent, createStore } from 'effector';
 import {
   IAuthParams,
-  IChangeSettingsParams,
+  IChangeServerSettingsParams,
   IChangeUserParams,
+  IChangeUserSettingsParams,
   IGetSettingsParams,
   IMainStore,
+  IServerSettings,
   ISettings,
   IUser,
+  IUserSettings,
 } from './types';
 import { $diary } from 'stores/diary/diary';
 import axios from 'axios';
@@ -24,10 +27,16 @@ export const $main = createStore<IMainStore>({
     id: undefined,
 
     settings: {
-      isUsingEfficiency: true,
-      efficiency: 6,
-      isShowWelcome: false,
-      isShowLearn: false,
+      userSettings: {
+        isUsingEfficiency: true,
+        efficiency: 6,
+      },
+      serverSettings: {
+        isDailyArchivating: true,
+        archivatingTime: 6,
+        isShowWelcome: false,
+        isShowLearn: false,
+      },
     },
   },
   isMobile,
@@ -47,16 +56,28 @@ export const getSettingsFx = createEffect(async (params: IGetSettingsParams) => 
   return req.data;
 });
 
-export const changeSettingsFx = createEffect(async (params: IChangeSettingsParams) => {
+export const changeSettingsFx = createEffect(async (params: IChangeUserSettingsParams) => {
   const req = await axios.post<ISettings>('/api/user/settings/change', params);
 
   return req.data;
 });
 
-export const $efficiency = combine($main, $diary, (main, diary) => {
-  const efficiency = main?.user?.settings?.efficiency;
+export const changeUserSettingsFx = createEffect(async (params: IChangeUserSettingsParams) => {
+  const req = await axios.post<IUserSettings>('/api/user/settings/user/change', params);
 
-  const isUsingEfficiency = main?.user?.settings?.isUsingEfficiency;
+  return req.data;
+});
+
+export const changeServerSettingsFx = createEffect(async (params: IChangeServerSettingsParams) => {
+  const req = await axios.post<IServerSettings>('/api/user/settings/server/change', params);
+
+  return req.data;
+});
+
+export const $efficiency = combine($main, $diary, (main, diary) => {
+  const efficiency = main?.user?.settings?.userSettings?.efficiency;
+
+  const isUsingEfficiency = main?.user?.settings?.userSettings?.isUsingEfficiency;
 
   const timeCost = diary?.diaries?.reduce((prev, next) => {
     return prev + Number(next?.duration || 0);
@@ -136,12 +157,27 @@ $main
       },
     };
   })
-  .on(changeSettingsFx.done, (state, { result }) => {
+  .on(changeUserSettingsFx.done, (state, { result }) => {
     return {
       ...state,
       user: {
         ...state.user,
-        settings: result,
+        settings: {
+          ...state.user.settings,
+          userSettings: result,
+        },
+      },
+    };
+  })
+  .on(changeServerSettingsFx.done, (state, { result }) => {
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        settings: {
+          ...state.user.settings,
+          serverSettings: result,
+        },
       },
     };
   })

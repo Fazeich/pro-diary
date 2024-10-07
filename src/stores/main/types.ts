@@ -6,8 +6,19 @@ export interface IUser {
 }
 
 export interface ISettings {
+  userSettings: IUserSettings;
+
+  serverSettings: IServerSettings;
+}
+
+export interface IUserSettings {
   isUsingEfficiency: boolean;
   efficiency: number;
+}
+
+export interface IServerSettings {
+  isDailyArchivating: boolean;
+  archivatingTime: number;
   isShowWelcome: boolean;
   isShowLearn: boolean;
 }
@@ -31,7 +42,12 @@ export interface IGetSettingsParams {
   userId: string;
 }
 
-export interface IChangeSettingsParams {
+export interface IChangeUserSettingsParams {
   userId: string;
-  settingsData: Partial<ISettings>;
+  settings: Partial<IUserSettings>;
+}
+
+export interface IChangeServerSettingsParams {
+  userId: string;
+  settings: Partial<IServerSettings>;
 }

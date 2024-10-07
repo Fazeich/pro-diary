@@ -72,7 +72,7 @@ export const Footer = () => {
 
   return (
     <StyledFooter isMobile={isMobile}>
-      {user?.settings?.isUsingEfficiency && (
+      {user?.settings?.userSettings?.isUsingEfficiency && (
         <Paragraph
           text={getEfficincyDescription()}
           theme='accent'

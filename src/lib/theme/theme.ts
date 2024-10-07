@@ -12,7 +12,7 @@ export const darkTheme: ITheme = {
   },
   secondary: {
     text: '#949393',
-    background: '#29255a',
+    background: '#251a3f',
     border: '#44474e',
     shadow: '#59595a',
     icon: '#666666',

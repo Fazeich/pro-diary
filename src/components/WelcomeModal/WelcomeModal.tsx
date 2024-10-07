@@ -1,27 +1,21 @@
 import { Modal } from 'uikit/components';
 import { useUnit } from 'effector-react';
-import React, { useEffect, useMemo, useState } from 'react';
-import { $main, changeSettingsFx } from 'stores/main/main';
-import { Paragraph } from 'uikit/components';
+import React, { useEffect, useState } from 'react';
+import { $main, changeServerSettingsFx, changeUserSettingsFx } from 'stores/main/main';
 import { FooterWrapper } from './styles';
 import { Button, notification } from 'antd';
 import { Start } from './ui/Start';
 import { Settings } from './ui/Settings';
-import { ISettings } from 'stores/main/types';
+import { IUserSettings } from 'stores/main/types';
 
 export const WelcomeModal = () => {
-  const {
-    user: {
-      settings: { isShowWelcome, isShowLearn },
-    },
-  } = useUnit($main);
   const { user } = useUnit($main);
 
-  const [open, setOpen] = useState(isShowWelcome);
+  const [open, setOpen] = useState(user?.settings?.serverSettings?.isShowWelcome || false);
   const [currentStep, setCurrentStep] = useState<'start' | 'settings'>('start');
-  const [settings, setSettings] = useState<Partial<ISettings>>({});
+  const [settings, setSettings] = useState<Partial<IUserSettings>>({});
 
-  const isChangingSettings = useUnit(changeSettingsFx.pending);
+  const isChangingSettings = useUnit(changeUserSettingsFx.pending);
 
   const ModalBody = () => {
     switch (currentStep) {
@@ -42,10 +36,10 @@ export const WelcomeModal = () => {
             <Button
               type='link'
               onClick={() => {
-                changeSettingsFx({
+                changeServerSettingsFx({
                   userId: user?.id,
-                  settingsData: {
-                    ...user.settings,
+                  settings: {
+                    ...user.settings?.serverSettings,
                     isShowWelcome: false,
                   },
                 });
@@ -68,10 +62,10 @@ export const WelcomeModal = () => {
               type='link'
               loading={isChangingSettings}
               onClick={() => {
-                changeSettingsFx({
+                changeServerSettingsFx({
                   userId: user?.id,
-                  settingsData: {
-                    ...user.settings,
+                  settings: {
+                    ...user.settings.serverSettings,
                     ...settings,
                     isShowWelcome: false,
                   },
@@ -100,14 +94,17 @@ export const WelcomeModal = () => {
   };
 
   useEffect(() => {
-    setSettings(user.settings);
+    setSettings(user.settings.userSettings);
   }, [user.settings]);
 
   useEffect(() => {
-    if (isShowWelcome && !isShowLearn) {
+    if (
+      user?.settings?.serverSettings?.isShowWelcome &&
+      !user?.settings?.serverSettings?.isShowLearn
+    ) {
       setOpen(true);
     }
-  }, [isShowWelcome, isShowLearn]);
+  }, [user?.settings?.serverSettings?.isShowWelcome, user?.settings?.serverSettings?.isShowLearn]);
 
   return (
     <Modal

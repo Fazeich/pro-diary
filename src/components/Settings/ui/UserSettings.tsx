@@ -4,24 +4,25 @@ import { Paragraph, Select } from 'uikit/components';
 import { Divider } from 'features';
 import { Button, notification, Switch } from 'antd';
 import { useUnit } from 'effector-react';
-import { $main, changeSettingsFx } from 'stores/main/main';
-import { HOURS } from 'lib/constants/constants';
+import { $main, changeUserSettingsFx } from 'stores/main/main';
+import { getHoursOptions } from 'lib/constants/constants';
 import { getHourDescription } from 'lib/utils/getHours';
-import { ISettings } from 'stores/main/types';
+import { IUserSettings } from 'stores/main/types';
+import { isEmpty } from 'lodash';
 
 export const UserSettings = () => {
   const { user } = useUnit($main);
 
-  const [settings, setSettings] = useState<Partial<ISettings>>({});
+  const [settings, setSettings] = useState<Partial<IUserSettings>>({});
 
   const { efficiency = null, isUsingEfficiency = false } = settings;
 
-  const isChangingSettings = useUnit(changeSettingsFx.pending);
+  const isChangingSettings = useUnit(changeUserSettingsFx.pending);
 
   const handleApplySettings = async () => {
-    await changeSettingsFx({
+    await changeUserSettingsFx({
       userId: user.id,
-      settingsData: settings,
+      settings,
     })
       .then(() => {
         notification.success({
@@ -36,8 +37,10 @@ export const UserSettings = () => {
   };
 
   useEffect(() => {
-    setSettings(user.settings);
-  }, [user.settings]);
+    if (!isEmpty(user?.settings?.userSettings)) {
+      setSettings(user?.settings?.userSettings);
+    }
+  }, [user?.settings?.userSettings]);
 
   return (
     <SettingsBlock>
@@ -55,16 +58,13 @@ export const UserSettings = () => {
       </FlexWrapper>
 
       <FlexWrapper>
-        <Paragraph text='Время для задач' theme='accent' />
+        <Paragraph text='Время для выполнения' theme='accent' />
         <Select
           value={efficiency}
           onChange={(value) => setSettings((prev) => ({ ...prev, efficiency: value }))}
           disabled={isChangingSettings || !isUsingEfficiency}
-          width={125}
-          options={HOURS.map((hour) => ({
-            value: hour,
-            label: `${hour} ${getHourDescription(hour)}`,
-          }))}
+          width={135}
+          options={getHoursOptions({ getDescription: (item) => getHourDescription(item) })}
         />
       </FlexWrapper>
 

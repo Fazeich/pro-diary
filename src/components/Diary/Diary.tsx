@@ -62,10 +62,10 @@ export const Diary = () => {
     return (
       <DiaryWrapper>
         {diaries?.map((diary) => (
-          <>
-            <DiaryItem {...diary} key={uniqueId()} />
-            <Divider key={uniqueId()} />
-          </>
+          <div key={uniqueId()}>
+            <DiaryItem {...diary} />
+            <Divider />
+          </div>
         ))}
       </DiaryWrapper>
     );

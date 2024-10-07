@@ -1,7 +1,7 @@
 import { Modal } from 'uikit/components';
 import { useUnit } from 'effector-react';
 import React, { useEffect, useState } from 'react';
-import { $main, changeSettingsFx } from 'stores/main/main';
+import { $main, changeServerSettingsFx, changeUserSettingsFx } from 'stores/main/main';
 import { Button } from 'antd';
 import { FooterWrapper } from './styles';
 import { Welcome } from './ui/Welcome';
@@ -10,23 +10,18 @@ import { LearnArchive } from './ui/LearnArchive';
 import { LearnSettings } from './ui/LearnSettings';
 
 export const LearnModal = () => {
-  const {
-    user: {
-      settings: { isShowLearn },
-    },
-  } = useUnit($main);
   const { user } = useUnit($main);
 
-  const isChangingSettings = useUnit(changeSettingsFx.pending);
+  const isChangingSettings = useUnit(changeUserSettingsFx.pending);
 
-  const [open, setOpen] = useState(isShowLearn);
+  const [open, setOpen] = useState(user?.settings?.serverSettings?.isShowLearn || false);
   const [currentStep, setCurrentStep] = useState<number>(0);
 
   const handleNotShowAnymore = () => {
-    changeSettingsFx({
+    changeServerSettingsFx({
       userId: user?.id,
-      settingsData: {
-        ...user.settings,
+      settings: {
+        ...user.settings.serverSettings,
         isShowLearn: false,
       },
     });
@@ -100,10 +95,10 @@ export const LearnModal = () => {
   ];
 
   useEffect(() => {
-    if (isShowLearn) {
+    if (user?.settings?.serverSettings?.isShowLearn) {
       setOpen(true);
     }
-  }, [isShowLearn]);
+  }, [user?.settings?.serverSettings?.isShowLearn]);
 
   return (
     <Modal

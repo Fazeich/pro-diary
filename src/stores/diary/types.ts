@@ -1,4 +1,4 @@
-export type ImportanceTypes = 'important' | 'not_important' | null;
+export type ImportanceTypes = 1 | 2 | undefined;
 
 export interface IDiary {
   _id?: string;

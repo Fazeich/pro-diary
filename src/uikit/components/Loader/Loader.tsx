@@ -1,10 +1,14 @@
 import { Spin } from 'antd';
-import React from 'react';
+import React, { FC } from 'react';
 import { LoaderWrapper } from './styles';
 
-export const Loader = () => {
+interface IProps {
+  margin?: number;
+}
+
+export const Loader: FC<IProps> = ({ margin = 0 }) => {
   return (
-    <LoaderWrapper>
+    <LoaderWrapper margin={margin}>
       <Spin />
     </LoaderWrapper>
   );

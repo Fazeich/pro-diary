@@ -4,14 +4,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import ErrorBoundary from 'antd/es/alert/ErrorBoundary';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <React.StrictMode>
-    <AppLayout>
-      <RouterProvider router={router} />
-    </AppLayout>
+    <ErrorBoundary>
+      <AppLayout>
+        <RouterProvider router={router} />
+      </AppLayout>
+    </ErrorBoundary>
   </React.StrictMode>
 );
 

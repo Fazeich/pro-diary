@@ -22,11 +22,11 @@ export const DiaryImportance: FC<IProps> = ({
   const { isMobile } = useUnit($main);
 
   const importanceLabel = useMemo(() => {
-    switch (diary.importance) {
-      case 'important':
+    switch (Number(diary.importance)) {
+      case 1:
         return 'Важно';
-      case 'not_important':
-        return 'Не важно';
+      case 2:
+        return 'Второстепенно';
       default:
         return 'Не указано';
     }

@@ -11,7 +11,7 @@ interface IProps {
 
 export const Diaries: FC<IProps> = ({ diaries, loading }) => {
   if (loading) {
-    return <Loader />;
+    return <Loader margin={100} />;
   }
 
   if (!diaries?.length) {
@@ -22,10 +22,10 @@ export const Diaries: FC<IProps> = ({ diaries, loading }) => {
     <>
       {diaries?.map((diary) => {
         return (
-          <>
-            <Diary {...diary} key={uniqueId()} />
-            <Divider key={uniqueId()} />
-          </>
+          <div key={uniqueId()}>
+            <Diary {...diary} />
+            <Divider />
+          </div>
         );
       })}
     </>

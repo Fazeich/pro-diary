@@ -2,13 +2,13 @@ import React, { FC } from 'react';
 import { FlexWrapper, SettingsWrapper } from '../styles';
 import { Paragraph, Select } from 'uikit/components';
 import { Switch } from 'antd';
-import { ISettings } from 'stores/main/types';
+import { IUserSettings } from 'stores/main/types';
 import { getHourDescription } from 'lib/utils/getHours';
 import { HOURS } from 'lib/constants/constants';
 
 interface IProps {
-  settings: Partial<ISettings>;
-  setSettings: React.Dispatch<React.SetStateAction<Partial<ISettings>>>;
+  settings: Partial<IUserSettings>;
+  setSettings: React.Dispatch<React.SetStateAction<Partial<IUserSettings>>>;
 }
 
 export const Settings: FC<IProps> = ({ settings, setSettings }) => {

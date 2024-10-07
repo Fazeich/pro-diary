@@ -1,7 +1,11 @@
 import { Tabs } from 'antd';
 import styled from 'styled-components';
 
-export const ArciveWrapper = styled.div``;
+export const ArciveWrapper = styled.div`
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+`;
 
 export const StyledTabs = styled(Tabs)`
   font-size: 18px;
@@ -21,6 +25,10 @@ export const StyledTabs = styled(Tabs)`
   .ant-tabs-nav-list {
     padding: 0 20px;
   }
+
+  .ant-tabs-content-holder {
+    overflow: hidden;
+  }
 `;
 
 export const DiaryItemWrapper = styled.div`
@@ -29,7 +37,7 @@ export const DiaryItemWrapper = styled.div`
 
   min-height: 65px;
 
-  padding: 5px 20px;
+  padding: 20px;
 
   cursor: pointer;
 
