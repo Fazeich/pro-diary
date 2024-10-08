@@ -19,6 +19,7 @@ export interface IUserSettings {
 export interface IServerSettings {
   isDailyArchivating: boolean;
   archivatingTime: number;
+  isDailyClearArchive: boolean;
   isShowWelcome: boolean;
   isShowLearn: boolean;
 }

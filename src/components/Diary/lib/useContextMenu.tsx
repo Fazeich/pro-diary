@@ -35,7 +35,7 @@ export const useContextMenu = ({ diary }) => {
                 const errorMessage = req?.response?.data?.message;
 
                 notification.error({
-                  message: errorMessage || 'Не удалось создать задачу',
+                  message: errorMessage || 'Не удалось дублировать задачу',
                 });
               });
             }
@@ -101,7 +101,7 @@ export const useContextMenu = ({ diary }) => {
               const errorMessage = req?.response?.data?.message;
 
               notification.error({
-                message: errorMessage || 'Не удалось удалть задачу',
+                message: errorMessage || 'Не удалось удалить задачу',
               });
             });
           }}

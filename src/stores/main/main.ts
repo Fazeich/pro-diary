@@ -28,12 +28,13 @@ export const $main = createStore<IMainStore>({
 
     settings: {
       userSettings: {
-        isUsingEfficiency: true,
+        isUsingEfficiency: false,
         efficiency: 6,
       },
       serverSettings: {
-        isDailyArchivating: true,
-        archivatingTime: 6,
+        isDailyClearArchive: false,
+        isDailyArchivating: false,
+        archivatingTime: 0,
         isShowWelcome: false,
         isShowLearn: false,
       },

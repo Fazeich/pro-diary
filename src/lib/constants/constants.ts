@@ -1,5 +1,5 @@
 export const HOURS = [
-  undefined,
+  null,
   1,
   2,
   3,
@@ -40,7 +40,7 @@ export const getHoursOptions = ({ getDescription }: IHoursOptionsParams) =>
     }
 
     return {
-      value: '',
+      value: null,
       label: 'Не указано',
     };
   });
@@ -48,7 +48,7 @@ export const getHoursOptions = ({ getDescription }: IHoursOptionsParams) =>
 export const IMPORTANCE_OPTIONS = [
   { label: 'Важно', value: 1 },
   { label: 'Второстепенно', value: 2 },
-  { label: 'Не указано', value: undefined },
+  { label: 'Не указано', value: null },
 ];
 
 export const HEADER_HEIGHT = 55;

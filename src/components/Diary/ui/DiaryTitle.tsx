@@ -49,7 +49,6 @@ export const DiaryTitle: FC<IProps> = ({ isChangingTitle, setIsChangingTitle, di
       <TextArea
         value={title}
         onChange={({ target: { value } }) => setTitle(value)}
-        onPressEnter={handleChangeTitle}
         onBlur={handleChangeTitle}
         autoFocus
         autoSize

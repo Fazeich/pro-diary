@@ -17,7 +17,7 @@ export const SettingsWrapper = styled.div<{ isMobile: boolean }>`
     `;
   }}
 
-  gap: ${({ isMobile }) => (isMobile ? '40px' : '20px')};
+  gap: 20px;
 `;
 
 export const SettingsBlock = styled.div`

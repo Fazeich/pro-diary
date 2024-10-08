@@ -85,11 +85,7 @@ export const changeDiaryFx = createEffect(async (params: IDiary) => {
 });
 
 export const deleteDiaryFx = createEffect(async ({ diaryId }: IDeleteDiaryParams) => {
-  const req = await axios.delete(`/api/diaries/${diaryId}`, {
-    params: {
-      id: diaryId,
-    },
-  });
+  const req = await axios.post('/api/diaries/delete', { id: diaryId });
 
   return req;
 });

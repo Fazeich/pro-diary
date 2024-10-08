@@ -7,9 +7,10 @@ import { $diary, changeNewDiary, createDiaryFx, resetNewDiary } from 'stores/dia
 import { DurationSelect } from 'features';
 import { $efficiency, $main } from 'stores/main/main';
 import { IMPORTANCE_OPTIONS } from 'lib/constants/constants';
-import { PlusIcon } from 'uikit/icons/PlusIcon';
 import { notification } from 'antd';
 import { getHourDescription } from 'lib/utils/getHours';
+import { PlusIcon } from 'uikit/icons/PlusIcon';
+import { AddIcon } from './AddIcon';
 
 export const Footer = () => {
   const { newDiary } = useUnit($diary);
@@ -33,21 +34,6 @@ export const Footer = () => {
     }
   };
 
-  const handleCreateEmptyDiary = () => {
-    createDiaryFx({
-      diary: {
-        title: '',
-      },
-      userId: user.id,
-    }).catch((req) => {
-      const errorMessage = req?.response?.data?.message;
-
-      notification.error({
-        message: errorMessage || 'Не удалось создать задачу',
-      });
-    });
-  };
-
   const getEfficincyDescription = () => {
     if (timeLost > 0) {
       return `Оставшееся время: ${timeLost} ${getHourDescription(timeLost)}`;
@@ -65,7 +51,7 @@ export const Footer = () => {
   if (isMobile) {
     return (
       <StyledFooter isMobile={isMobile}>
-        <PlusIcon size={45} theme='accent' onClick={handleCreateEmptyDiary} cursor='pointer' />
+        <AddIcon user={user} />
       </StyledFooter>
     );
   }
@@ -89,7 +75,7 @@ export const Footer = () => {
       />
 
       <Select
-        value={newDiary?.importance}
+        value={newDiary?.importance || null}
         options={IMPORTANCE_OPTIONS}
         placement='topLeft'
         width={250}
@@ -100,7 +86,7 @@ export const Footer = () => {
       <DurationSelect
         placeholder='Длительность'
         placement='topLeft'
-        duration={newDiary?.duration}
+        duration={newDiary?.duration || null}
         setDuration={(value) => changeNewDiary({ duration: value })}
         width={250}
         getDisabledOption={(option) => Number(option.value) > timeLost}
