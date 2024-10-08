@@ -9,13 +9,20 @@ interface IProps {
   loading: boolean;
 }
 
-export const Diaries: FC<IProps> = ({ diaries, loading }) => {
+export const Diaries: FC<IProps> = ({ diaries = [], loading }) => {
   if (loading) {
     return <Loader margin={100} />;
   }
 
   if (!diaries?.length) {
-    <Empty description='В архиве нет завершённых задач' />;
+    return (
+      <Empty
+        style={{
+          marginTop: 20,
+        }}
+        description='В архиве нет задач'
+      />
+    );
   }
 
   return (
