@@ -23,6 +23,7 @@ const isMobile =
 export const $main = createStore<IMainStore>({
   user: {
     login: '',
+    type: 'default',
     name: '',
     id: undefined,
 

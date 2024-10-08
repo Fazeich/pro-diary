@@ -1,5 +1,8 @@
+export type UserTypes = 'inactive' | 'default' | 'premium';
+
 export interface IUser {
   login: string;
+  type: UserTypes;
   name: string;
   id?: string;
   settings: ISettings;

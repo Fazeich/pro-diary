@@ -28,7 +28,8 @@ export const ServerSetings = () => {
           message: 'Настройки успешно изменены!',
         });
       })
-      .catch(() => {
+      .catch((a) => {
+        console.log(a);
         notification.error({
           message: 'Не удалось изменить настройки.\nПопробуйте позже',
         });
