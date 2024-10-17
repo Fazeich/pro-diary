@@ -75,7 +75,7 @@ export const Footer = () => {
       />
 
       <Select
-        value={newDiary?.importance || null}
+        value={newDiary?.importance}
         options={IMPORTANCE_OPTIONS}
         placement='topLeft'
         width={250}
@@ -86,7 +86,7 @@ export const Footer = () => {
       <DurationSelect
         placeholder='Длительность'
         placement='topLeft'
-        duration={newDiary?.duration || null}
+        duration={newDiary?.duration}
         setDuration={(value) => changeNewDiary({ duration: value })}
         width={250}
         getDisabledOption={(option) => Number(option.value) > timeLost}

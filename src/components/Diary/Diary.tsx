@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useInsertionEffect } from 'react';
 import { DiaryWrapper, NoDiaryWrapper } from './styles';
 import { useUnit } from 'effector-react';
 import {
@@ -42,7 +42,7 @@ export const Diary = () => {
     isArchivingDiary ||
     isUnarchivingDiary;
 
-  useEffect(() => {
+  useInsertionEffect(() => {
     if (user?.id && !isPendingDiary) {
       getDiariesFx({ userId: user.id }).catch((req) => {
         const errorMessage = req?.response?.data?.message;

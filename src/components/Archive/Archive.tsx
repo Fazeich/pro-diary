@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useInsertionEffect, useLayoutEffect, useState } from 'react';
 import { ArciveWrapper, StyledTabs } from './styles';
 import { Diaries } from './ui/Diaries';
 import {
@@ -41,7 +41,7 @@ export const Archive = () => {
     },
   ];
 
-  useEffect(() => {
+  useInsertionEffect(() => {
     if (user?.id && !isPendingsDiary) {
       if (activeKey === 'finished') {
         getArchivedFinishedDiariesFx({ userId: user.id }).catch((req) => {

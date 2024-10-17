@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, useEffect, useInsertionEffect, useLayoutEffect, useMemo } from 'react';
 import { useUnit } from 'effector-react';
 import { darkTheme, lightTheme } from 'lib/theme/theme';
 import { ThemeProvider } from 'styled-components';
@@ -26,7 +26,7 @@ export const AppLayout: FC<IProps> = ({ children }) => {
     }
   }, [theme]);
 
-  useEffect(() => {
+  useInsertionEffect(() => {
     if (!user?.id) {
       getMeFx();
     }

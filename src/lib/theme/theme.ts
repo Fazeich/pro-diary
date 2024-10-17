@@ -23,8 +23,8 @@ export const darkTheme: ITheme = {
     background: '#6f7079',
     border: '#1b1e2b',
     shadow: '#59595a',
-    icon: '#7c8ea8',
-    link: '#7c8ea8',
+    icon: '#859ccc',
+    link: '#859ccc',
   },
 };
 
