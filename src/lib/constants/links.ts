@@ -22,9 +22,9 @@ export const LINKS: ILink[] = [
     url: 'settings',
     id: uniqueId(),
   },
-  {
-    title: 'Профиль',
-    url: 'profile',
-    id: uniqueId(),
-  },
+  // {
+  //   title: 'Профиль',
+  //   url: 'profile',
+  //   id: uniqueId(),
+  // },
 ];
